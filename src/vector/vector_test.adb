@@ -6,9 +6,9 @@ package body Vector_Test is
 
    procedure Test_Vector_Create (T : in out Test_Cases.Test_Case'Class) is
       X, Y, Z : Float;
-      V       : Vector;
+      V       : Vector.Vector;
    begin
-      X := 1; Y := 2; Z := 3;
+      X := 1.0; Y := 2.0; Z := 3.0;
       V := Vector_Create(X, Y, Z);
       Assert (V(1) = X, "X is incorrect");
       Assert (V(2) = Y, "Y is incorrect");
