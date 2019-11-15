@@ -7,10 +7,10 @@ package Vector_Test is
 
   type Vector_Test is new Test_Cases.Test_Case with null record;
 
-  procedure Register_Tests (T: in out Money_Test);
+  procedure Register_Tests (T: in out Vector_Test);
   -- Register routines to be run
 
-  function Name (T: Money_Test) return Message_String;
+  function Name (T: Vector_Test) return Message_String;
   -- Provide name identifying the test case
 
   -- Test Routines:
