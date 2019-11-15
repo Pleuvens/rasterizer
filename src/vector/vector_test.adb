@@ -1,8 +1,8 @@
 with AUnit.Assertions; use AUnit.Assertions;
-with Float; use Float;
 with Vector; use Vector;
+with Vector_Test;
 
-package body Vector_Tests is
+package body Vector_Test is
 
    procedure Test_Vector_Create (T : in out Test_Cases.Test_Case'Class) is
       X, Y, Z : Float;
@@ -10,10 +10,10 @@ package body Vector_Tests is
    begin
       X := 1; Y := 2; Z := 3;
       V := Vector_Create(X, Y, Z);
-      Assert (V(0) = X, "X is incorrect");
-      Assert (V(1) = Y, "Y is incorrect");
-      Assert (V(2) = Z, "Z is incorrect");
-   end Test_Simple_Add;
+      Assert (V(1) = X, "X is incorrect");
+      Assert (V(2) = Y, "Y is incorrect");
+      Assert (V(3) = Z, "Z is incorrect");
+   end Test_Vector_Create;
 
    -- Register test routines to call
    procedure Register_Tests (T: in out Vector_Test) is
@@ -30,4 +30,4 @@ package body Vector_Tests is
       return Format ("Vector Tests");
    end Name;
 
-end Vector_Tests;
+end Vector_Test;

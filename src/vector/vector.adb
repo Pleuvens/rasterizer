@@ -1,47 +1,47 @@
-with Float; use Float;
+with Vector;
 
 package body Vector is
-    function Vector_Create(X, Y, Z: Float.Float) return Vector
+    function Vector_Create(X, Y, Z: Float) return Vector is
     begin
-      return Vector(X, Y, Z);
+      return (X, Y, Z);
     end;
 
     function Vector_Get(This: Vector;
-                        Index: Integer) return Float.Float
+                        Index: Integer) return Float is
     begin
       return This(Index);
-    end
+    end Vector_Get;
 
     procedure Vector_Set(This: in out Vector;
                          Index: Integer;
-                         Value: Float.Float)
+                         Value: Float) is
     begin
       This(Index) := Value;
-    end
+    end Vector_Set;
 
-    function Vector_Add(U, V: Vector) return Vector;
+    function Vector_Add(U, V: Vector) return Vector is
     begin
-      return Vector(U(0) + V(0), U(1) + V(1), U(2) + V(2));
-    end
+      return (U(1) + V(1), U(2) + V(2), U(3) + V(3));
+    end Vector_Add;
 
-    function Vector_Sub(U, V: Vector) return Vector;
+    function Vector_Sub(U, V: Vector) return Vector is
     begin
-      return Vector(U(0) - V(0), U(1) - V(1), U(2) - V(2));
-    end
+      return (U(1) - V(1), U(2) - V(2), U(3) - V(3));
+    end Vector_Sub;
 
-    function Vector_Dot(U, V: Vector) return Vector;
+    function Vector_Dot(U, V: Vector) return Vector is
     begin
-      return Vector(U(0) * V(0), U(1) * V(1), U(2) * V(2));
-    end
+      return (U(1) * V(1), U(2) * V(2), U(3) * V(3));
+    end Vector_Dot;
 
-    function Vector_Mult(U, V: Vector) return Vector;
+    function Vector_Mult(U, V: Vector) return Vector is
     begin
-      return Vector(U(0) + V(0), U(1) + V(1), U(2) + V(2));
-    end
+      return (U(1) + V(1), U(2) + V(2), U(3) + V(3));
+    end Vector_Mult;
 
     function Vector_Mult(V: Vector;
-                         Value: Float.Float) return Vector;
+                         Value: Float) return Vector is
     begin
-      return Vector(U(0) * Value, U(1) * Value, U(2) * Value);
-    end
+      return (V(1) * Value, V(2) * Value, V(3) * Value);
+    end Vector_Mult;
 end Vector;

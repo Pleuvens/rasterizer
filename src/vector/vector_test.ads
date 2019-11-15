@@ -1,9 +1,9 @@
 with AUnit; use AUnit;
 with AUnit.Test_Cases; use AUnit.Test_Cases;
-use Vector;
+with Vector; use Vector;
 
 
-package Vector_Tests is
+package Vector_Test is
 
   type Vector_Test is new Test_Cases.Test_Case with null record;
 
@@ -15,4 +15,4 @@ package Vector_Tests is
 
   -- Test Routines:
   procedure Test_Vector_Create (T : in out Test_Cases.Test_Case'Class);
-end Vector_Tests
+end Vector_Test;
