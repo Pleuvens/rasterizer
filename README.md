@@ -1,4 +1,4 @@
-### Rasterizer
+# Rasterizer
 
 This is a rasterizer implementation in Ada
 
@@ -6,7 +6,7 @@ This is a rasterizer implementation in Ada
 
 First you need to install the toolchain and the unit test framework.
 
-# Toolchain
+### Toolchain
 
 Download the installer [here](https://www.adacore.com/download) (choose
 gnat-community-2019-20190517-x86\_64-linux-bin)
@@ -18,7 +18,7 @@ where you will add:
 
 `export PATH=/path/to/toolchain/bin:$PATH`
 
-# Unit test framework
+### Unit test framework
 
 Create a libs directory in env directory and clone the AUnit github [repository](https://github.com/AdaCore/aunit)
 
