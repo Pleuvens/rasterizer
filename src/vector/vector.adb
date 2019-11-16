@@ -19,6 +19,11 @@ package body Vector is
       This(Index) := Value;
     end Vector_Set;
 
+    function Vector_Equals(U, V: Vector) return Boolean is
+    begin
+      return U(1) = V(1) and U(2) = V(2) and U(3) = V(3);
+    end Vector_Equals;
+
     function Vector_Add(U, V: Vector) return Vector is
     begin
       return (U(1) + V(1), U(2) + V(2), U(3) + V(3));

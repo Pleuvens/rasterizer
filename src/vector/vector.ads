@@ -7,6 +7,7 @@ package Vector is
     procedure Vector_Set(This: in out Vector;
                          Index: Integer;
                          Value: Float);
+    function Vector_Equals(U, V: Vector) return Boolean;
     function Vector_Add(U, V: Vector) return Vector;
     function Vector_Sub(U, V: Vector) return Vector;
     function Vector_Dot(U, V: Vector) return Vector;

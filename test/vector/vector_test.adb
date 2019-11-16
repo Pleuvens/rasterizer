@@ -10,18 +10,16 @@ package body Vector_Test is
    begin
       X := 1.0; Y := 2.0; Z := 3.0;
       V := Vector_Create(X, Y, Z);
-      Assert (V(1) = X, "X is incorrect");
-      Assert (V(2) = Y, "Y is incorrect");
-      Assert (V(3) = Z, "Z is incorrect");
+      Assert(Vector_Equals(V, Vector_Create(X, Y, Z)), "1: basic create");
    end Test_Vector_Create;
 
   procedure Test_Vector_Get (T : in out Vector_Test) is
     V   : Vector.Vector;
   begin
     V := Vector_Create(1.0, 2.0, 3.0);
-    Assert (Vector_Get(V, 1) = 1.0, "X is incorrect");
-    Assert (Vector_Get(V, 2) = 2.0, "Y is incorrect");
-    Assert (Vector_Get(V, 3) = 3.0, "Z is incorrect");
+    Assert (Vector_Get(V, 1) = 1.0, "1: X is incorrect");
+    Assert (Vector_Get(V, 2) = 2.0, "1: Y is incorrect");
+    Assert (Vector_Get(V, 3) = 3.0, "1: Z is incorrect");
   end Test_Vector_Get;
 
   procedure Test_Vector_Set (T : in out Vector_Test) is
@@ -31,25 +29,28 @@ package body Vector_Test is
     Vector_Set(V, 1, 4.0);
     Vector_Set(V, 2, 5.0);
     Vector_Set(V, 3, 6.0);
-    Assert (Vector_Get(V, 1) = 4.0, "X is incorrect");
-    Assert (Vector_Get(V, 2) = 5.0, "Y is incorrect");
-    Assert (Vector_Get(V, 3) = 6.0, "Z is incorrect");
+    Assert(Vector_Equals(V, Vector_Create(4.0, 5.0, 6.0)), "1: basic vector set");
   end Test_Vector_Set;
 
+  procedure Test_Vector_Equals (T : in out Vector_Test) is
+    U, V: Vector.Vector;
+  begin
+    U := Vector_Create(1.0, 2.0, 3.0);
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Assert(Vector_Equals(U, V) = true, "1: Should be equals");
+  end Test_Vector_Equals;
 
-   -- Register test routines to call
-  -- procedure Register_Tests (T: in out Vector_Test) is
-    --  use AUnit.Test_Cases.Registration;
-   --begin
-      -- Repeat for each test routine:
-   --   Register_Routine (T, Test_Vector_Create'Access, "Test Vector Creation");
-   --end Register_Tests;
+  procedure Test_Vector_Add (T : in out Vector_Test) is
+    U, V, Res: Vector.Vector;
+  begin
+    U := Vector_Create(1.0, 2.0, 3.0);
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Res := Vector_Add(U, V);
+    Assert(Vector_Equals(Res, Vector_Create(2.0, 4.0, 6.0)), "1: Simple addition");
+  end Test_Vector_Add;
 
-   -- Identifier of test case
-
-   --function Name (T: Vector_Test) return Test_String is
-   --begin
-    --  return Format ("Vector Tests");
-   --end Name;
+  --procedure Test_Vector_Sub (T : in out Vector_Test);
+  --procedure Test_Vector_Dot (T : in out Vector_Test);
+  --procedure Test_Vector_Mult (T : in out Vector_Test);
 
 end Vector_Test;
