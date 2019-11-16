@@ -29,6 +29,7 @@ TEST_SRC= ada_containers.ads aunit \
 		 aunit-test_fixtures \
 		 aunit-reporter-text \
 		 vector_test \
+		 vector_test_suite \
 		 test_suite \
 		 tests
 
