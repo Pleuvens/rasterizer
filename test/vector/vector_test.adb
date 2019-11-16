@@ -15,6 +15,28 @@ package body Vector_Test is
       Assert (V(3) = Z, "Z is incorrect");
    end Test_Vector_Create;
 
+  procedure Test_Vector_Get (T : in out Vector_Test) is
+    V   : Vector.Vector;
+  begin
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Assert (Vector_Get(V, 1) = 1.0, "X is incorrect");
+    Assert (Vector_Get(V, 2) = 2.0, "Y is incorrect");
+    Assert (Vector_Get(V, 3) = 3.0, "Z is incorrect");
+  end Test_Vector_Get;
+
+  procedure Test_Vector_Set (T : in out Vector_Test) is
+    V : Vector.Vector;
+  begin
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Vector_Set(V, 1, 4.0);
+    Vector_Set(V, 2, 5.0);
+    Vector_Set(V, 3, 6.0);
+    Assert (Vector_Get(V, 1) = 4.0, "X is incorrect");
+    Assert (Vector_Get(V, 2) = 5.0, "Y is incorrect");
+    Assert (Vector_Get(V, 3) = 6.0, "Z is incorrect");
+  end Test_Vector_Set;
+
+
    -- Register test routines to call
   -- procedure Register_Tests (T: in out Vector_Test) is
     --  use AUnit.Test_Cases.Registration;

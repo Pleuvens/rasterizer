@@ -15,4 +15,13 @@ package Vector_Test is
 
   -- Test Routines:
   procedure Test_Vector_Create (T : in out Vector_Test);
+
+  procedure Test_Vector_Get (T : in out Vector_Test);
+  procedure Test_Vector_Set (T : in out Vector_Test);
+
+  --procedure Test_Vector_Create (T : in out Vector_Test);
+  --procedure Test_Vector_Create (T : in out Vector_Test);
+  --procedure Test_Vector_Create (T : in out Vector_Test);
+  --procedure Test_Vector_Create (T : in out Vector_Test);
+  --procedure Test_Vector_Create (T : in out Vector_Test);
 end Vector_Test;

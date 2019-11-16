@@ -13,6 +13,14 @@ package body Test_Suite is
          (Vector_Caller.Create
             ("Vector Test : Test Vector Creation",
               Vector_Test.Test_Vector_Create'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Get",
+              Vector_Test.Test_Vector_Get'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Set",
+              Vector_Test.Test_Vector_Set'Access));
       return Ret;
    end Suite;
 end Test_Suite;
