@@ -22,7 +22,7 @@ package Vector_Test is
   procedure Test_Vector_Equals (T : in out Vector_Test);
 
   procedure Test_Vector_Add (T : in out Vector_Test);
-  --procedure Test_Vector_Sub (T : in out Vector_Test);
-  --procedure Test_Vector_Dot (T : in out Vector_Test);
-  --procedure Test_Vector_Mult (T : in out Vector_Test);
+  procedure Test_Vector_Sub (T : in out Vector_Test);
+  procedure Test_Vector_Dot (T : in out Vector_Test);
+  procedure Test_Vector_Mult (T : in out Vector_Test);
 end Vector_Test;

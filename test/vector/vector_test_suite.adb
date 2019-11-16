@@ -29,6 +29,18 @@ package body Vector_Test_Suite is
          (Vector_Caller.Create
             ("Vector Test : Test Vector Add",
               Vector_Test.Test_Vector_Add'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Sub",
+              Vector_Test.Test_Vector_Sub'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Dot",
+              Vector_Test.Test_Vector_Dot'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Mult",
+              Vector_Test.Test_Vector_Mult'Access));
       return Ret;
    end Suite;
 end Vector_Test_Suite;

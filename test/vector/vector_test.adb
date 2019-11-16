@@ -49,8 +49,32 @@ package body Vector_Test is
     Assert(Vector_Equals(Res, Vector_Create(2.0, 4.0, 6.0)), "1: Simple addition");
   end Test_Vector_Add;
 
-  --procedure Test_Vector_Sub (T : in out Vector_Test);
-  --procedure Test_Vector_Dot (T : in out Vector_Test);
-  --procedure Test_Vector_Mult (T : in out Vector_Test);
+  procedure Test_Vector_Sub (T : in out Vector_Test) is
+    U, V, Res: Vector.Vector;
+  begin
+    U := Vector_Create(1.0, 2.0, 3.0);
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Res := Vector_Sub(U, V);
+    Assert(Vector_Equals(Res, Vector_Create(0.0, 0.0, 0.0)), "1: Simple substraction");
+  end Test_Vector_Sub;
+
+  procedure Test_Vector_Dot (T : in out Vector_Test) is
+    U, V, Res: Vector.Vector;
+  begin
+    U := Vector_Create(1.0, 2.0, 3.0);
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Res := Vector_Dot(U, V);
+    Assert(Vector_Equals(Res, Vector_Create(1.0, 4.0, 9.0)), "1: Simple scalar product");
+  end Test_Vector_Dot;
+
+  procedure Test_Vector_Mult (T : in out Vector_Test) is
+    U, V, Res: Vector.Vector;
+  begin
+    U := Vector_Create(1.0, 2.0, 3.0);
+    V := Vector_Create(1.0, 2.0, 3.0);
+    Res := Vector_Mult(U, V);
+    Assert(Vector_Equals(Res, Vector_Create(0.0, 0.0, 0.0)), "1: Simple vector multiplication");
+  end Test_Vector_Mult;
+
 
 end Vector_Test;
