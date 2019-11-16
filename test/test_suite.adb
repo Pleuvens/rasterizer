@@ -1,7 +1,7 @@
 with AUnit.Test_Caller;
 with Vector_Test;
 
-package body Vector_Test_Suite is
+package body Test_Suite is
 	package Vector_Caller is new AUnit.Test_Caller
       (Vector_Test.Vector_Test);
 
@@ -15,4 +15,4 @@ package body Vector_Test_Suite is
               Vector_Test.Test_Vector_Create'Access));
       return Ret;
    end Suite;
-end Vector_Test_Suite;
+end Test_Suite;

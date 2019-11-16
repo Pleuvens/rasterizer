@@ -1,4 +1,5 @@
 env
+build
 *.ali
 *.o
 *.swp
