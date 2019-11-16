@@ -41,7 +41,7 @@ package body Vector is
 
     function Vector_Mult(U, V: Vector) return Vector is
     begin
-      return (U(1) + V(1), U(2) + V(2), U(3) + V(3));
+      return (U(2)*V(3) - U(3)*V(2), U(3)*V(1) - U(1)*V(3), U(1)*V(2) - U(2)*V(1));
     end Vector_Mult;
 
     function Vector_Mult(V: Vector;
