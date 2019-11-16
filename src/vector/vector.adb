@@ -4,7 +4,7 @@ package body Vector is
     function Vector_Create(X, Y, Z: Float) return Vector is
     begin
       return (X, Y, Z);
-    end;
+    end Vector_Create;
 
     function Vector_Get(This: Vector;
                         Index: Integer) return Float is
