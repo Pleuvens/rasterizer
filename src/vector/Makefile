@@ -1,28 +1,39 @@
+INCLUDE_DIRS= -I../../env/libs/aunit/include/aunit/containers/ \
+              -I../../env/libs/aunit/include/aunit/framework/ \
+              -I../../env/libs/aunit/include/aunit/framework/calendar/ \
+              -I../../env/libs/aunit/include/aunit/framework/fullexception/ \
+              -I../../env/libs/aunit/include/aunit/framework/staticmemory/ \
+              -I../../env/libs/aunit/include/aunit/reporters/
+
+SRC= ada_containers.ads aunit \
+		 aunit \
+		 aunit-time_measure \
+		 aunit-assertions \
+		 aunit-test_cases \
+		 ada_containers-aunit_lists \
+		 aunit-memory \
+		 aunit-memory-utils \
+		 aunit-test_results \
+		 aunit-tests \
+		 aunit-options \
+		 aunit-test_filters \
+		 aunit-simple_test_cases \
+		 aunit-reporter \
+		 aunit-run \
+		 aunit-test_caller \
+		 aunit-test_suites \
+		 aunit-test_fixtures \
+		 aunit-reporter-text \
+		 vector \
+		 vector_test \
+		 vector_test_suite \
+		 v_tests
+
 test:
 	. ../../env/env.sh 
-	gcc -c -I../../env/libs/aunit/include/aunit/containers/ -I- ../../env/libs/aunit/include/aunit/containers/ada_containers.ads
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I- ../../env/libs/aunit/include/aunit/framework/aunit.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/  -I- ../../env/libs/aunit/include/aunit/framework/calendar/aunit-time_measure.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/fullexception/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/  -I- ../../env/libs/aunit/include/aunit/framework/aunit-assertions.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_cases.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I- ../../env/libs/aunit/include/aunit/containers/ada_containers-aunit_lists.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I- ../../env/libs/aunit/include/aunit/framework/staticmemory/aunit-memory.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I- ../../env/libs/aunit/include/aunit/framework/staticmemory/aunit-memory-utils.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_results.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-tests.ads
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-options.ads
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_filters.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-simple_test_cases.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-reporter.ads
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-run.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_caller.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_suites.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I- ../../env/libs/aunit/include/aunit/framework/aunit-test_fixtures.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/certexception/ -I../../env/libs/aunit/include/aunit/reporters/ -I- ../../env/libs/aunit/include/aunit/reporters/aunit-reporter-text.adb
-	gnat compile vector
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ vector_test.adb
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ vector_test_suite.adb
-#	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I../../env/libs/aunit/include/aunit/reporters/ vector_tests.ads
-	gcc -c -I../../env/libs/aunit/include/aunit/framework/ -I../../env/libs/aunit/include/aunit/containers/ -I../../env/libs/aunit/include/aunit/framework/calendar/ -I../../env/libs/aunit/include/aunit/framework/staticmemory/ -I../../env/libs/aunit/include/aunit/reporters/ v_tests.adb
+	gnatmake $(INCLUDE_DIRS) $(SRC)
 	gnat bind v_tests
 	gnat link v_tests
+
+clean:
+	rm *.ali *.o v_tests
