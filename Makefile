@@ -1,13 +1,15 @@
-INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
+TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
               -Ienv/libs/aunit/include/aunit/framework/ \
               -Ienv/libs/aunit/include/aunit/framework/calendar/ \
               -Ienv/libs/aunit/include/aunit/framework/fullexception/ \
               -Ienv/libs/aunit/include/aunit/framework/staticmemory/ \
               -Ienv/libs/aunit/include/aunit/reporters/ \
-              -Isrc/vector \
-              -Itest/
+              -Itest/ \
+              -Itest/vector
 
-SRC= ada_containers.ads aunit \
+INCLUDE_DIRS= -Isrc/vector
+
+TEST_SRC= ada_containers.ads aunit \
 		 aunit \
 		 aunit-time_measure \
 		 aunit-assertions \
@@ -26,18 +28,20 @@ SRC= ada_containers.ads aunit \
 		 aunit-test_suites \
 		 aunit-test_fixtures \
 		 aunit-reporter-text \
-		 vector \
 		 vector_test \
 		 test_suite \
 		 tests
 
-BIN= tests
+SRC= vector
+
+ALL_BIN= tests
 
 check:
 	. env/env.sh 
-	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC)
+	gnatmake -D 'build' $(INCLUDE_DIRS) $(TEST_INCLUDE_DIRS) $(SRC) $(TEST_SRC)
 	gnat bind build/tests
 	gnat link build/tests
+	./tests
 
 clean:
-	rm build/* $(BIN)
+	rm build/* $(ALL_BIN)
