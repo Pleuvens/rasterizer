@@ -7,7 +7,8 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
               -Itest/ \
               -Itest/vector \
               -Itest/color \
-              -Itest/triangles
+              -Itest/triangles \
+              -Itest/scene
 
 INCLUDE_DIRS= -Isrc/vector \
               -Isrc/color \
@@ -39,6 +40,8 @@ TEST_SRC= ada_containers.ads aunit \
 		 color_test_suite \
      triangle_test \
 		 triangle_test_suite \
+     scene_test \
+		 scene_test_suite \
 		 test_suite \
 		 tests
 
