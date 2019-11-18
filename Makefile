@@ -11,7 +11,8 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
 
 INCLUDE_DIRS= -Isrc/vector \
               -Isrc/color \
-              -Isrc/triangles
+              -Isrc/triangles \
+              -Isrc/scene
 
 TEST_SRC= ada_containers.ads aunit \
 		 aunit \
@@ -43,7 +44,8 @@ TEST_SRC= ada_containers.ads aunit \
 
 SRC= vector \
      color \
-     triangle
+     triangle \
+     scene
 
 ALL_BIN= tests
 
