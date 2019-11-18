@@ -64,7 +64,7 @@ package body Color_Test is
     U := Color_Create(1.0, 2.0, 3.0);
     V := Color_Create(1.0, 2.0, 3.0);
     Res := Color_Mult(U, V);
-    Assert(Color_Equals(Res, Color_Create(0.0, 0.0, 0.0)), "1: Simple vector multiplication");
+    Assert(Color_Equals(Res, Color_Create(1.0, 4.0, 9.0)), "1: Simple vector multiplication");
   end Test_Color_Mult;
 
 
