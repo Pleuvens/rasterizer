@@ -1,4 +1,5 @@
 with Vector_Test_Suite;
+with Color_Test_Suite;
 with AUnit.Tests;
 
 package body Test_Suite is
@@ -12,6 +13,7 @@ package body Test_Suite is
       Result : Access_Test_Suite := AUnit.Test_Suites.New_Suite;
    begin
       Result.Add_Test (Vector_Test_Suite.Suite);
+      Result.Add_Test (Color_Test_Suite.Suite);
       return Result;
    end Suite;
 end Test_Suite;
