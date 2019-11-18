@@ -1,20 +1,24 @@
-use Vector_RZ
-    Color_RZ;
+with Vector; use Vector;
+with Color; use Color;
 
-package Triangle_RZ is
+package Triangle is
+
+    type Vector_Arr is array (1..3) of Vector.Vector;
+
     type Triangle is record
-        Vectors : Vector_RZ.Vector(1..3);
-        Color: Color_RZ.Color;
+        Vectors : Vector_Arr;
+        T_Color: Color.Color;
     end record;
 
-    function Triangle_Create(Vectors: Vector_RZ.Vector(1..3);
-                             Color  : Color_RZ.Color) return Triangle;
+    function Triangle_Create(Vectors: Vector_Arr;
+                             C      : Color.Color) return Triangle;
+    function Triangle_Equals(T, T2: Triangle) return Boolean;
     function Triangle_Get_Vector(This: Triangle;
-                                 Index: Integer) return Vector_RZ.Vector;
+                                 Index: Integer) return Vector.Vector;
+    function Triangle_Get_Color(This: Triangle) return Color.Color;
     procedure Triangle_Set_Vector(This: in out Triangle;
                                   Index: Integer;
-                                  Value: Vector_RZ.Vector);
-    function Triangle_Get_Color(This: Triangle) return Color_RZ.Color;
+                                  Value: Vector.Vector);
     procedure Triangle_Set_Color(This: in out Triangle;
-                                 Value: Color_RZ.Color);
-end Triangle_RZ;
+                                 Value: Color.Color);
+end Triangle;

@@ -1,5 +1,6 @@
 with Vector_Test_Suite;
 with Color_Test_Suite;
+with Triangle_Test_Suite;
 with AUnit.Tests;
 
 package body Test_Suite is
@@ -14,6 +15,7 @@ package body Test_Suite is
    begin
       Result.Add_Test (Vector_Test_Suite.Suite);
       Result.Add_Test (Color_Test_Suite.Suite);
+      Result.Add_Test (Triangle_Test_Suite.Suite);
       return Result;
    end Suite;
 end Test_Suite;

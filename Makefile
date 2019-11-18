@@ -6,10 +6,12 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
               -Ienv/libs/aunit/include/aunit/reporters/ \
               -Itest/ \
               -Itest/vector \
-              -Itest/color
+              -Itest/color \
+              -Itest/triangles
 
 INCLUDE_DIRS= -Isrc/vector \
-              -Isrc/color
+              -Isrc/color \
+              -Isrc/triangles
 
 TEST_SRC= ada_containers.ads aunit \
 		 aunit \
@@ -34,11 +36,14 @@ TEST_SRC= ada_containers.ads aunit \
 		 vector_test_suite \
 		 color_test \
 		 color_test_suite \
+     triangle_test \
+		 triangle_test_suite \
 		 test_suite \
 		 tests
 
 SRC= vector \
-     color
+     color \
+     triangle
 
 ALL_BIN= tests
 
