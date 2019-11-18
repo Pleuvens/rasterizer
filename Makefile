@@ -5,9 +5,11 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
               -Ienv/libs/aunit/include/aunit/framework/staticmemory/ \
               -Ienv/libs/aunit/include/aunit/reporters/ \
               -Itest/ \
-              -Itest/vector
+              -Itest/vector \
+              -Itest/color
 
-INCLUDE_DIRS= -Isrc/vector
+INCLUDE_DIRS= -Isrc/vector \
+              -Isrc/color
 
 TEST_SRC= ada_containers.ads aunit \
 		 aunit \
@@ -30,10 +32,13 @@ TEST_SRC= ada_containers.ads aunit \
 		 aunit-reporter-text \
 		 vector_test \
 		 vector_test_suite \
+		 color_test \
+		 color_test_suite \
 		 test_suite \
 		 tests
 
-SRC= vector
+SRC= vector \
+     color
 
 ALL_BIN= tests
 

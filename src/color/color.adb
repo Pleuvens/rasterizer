@@ -1,4 +1,4 @@
-  with Color;
+with Color;
 
 package body Color is
     function Color_Create(R, G, B: Float) return Color is
