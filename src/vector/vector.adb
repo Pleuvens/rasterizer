@@ -49,4 +49,21 @@ package body Vector is
     begin
       return (V(1) * Value, V(2) * Value, V(3) * Value);
     end Vector_Mult;
+
+    function Vector_Camera_To_Raster_Space(This: Vector;
+	                                   R, L, T, B, W, H: Positive) return Vector is
+      Near_Clipping_Plane : Float := 0.1;
+      X, Y: Float;
+      Screen_S, Ndc: Vector;
+    begin
+      X := Near_Clipping_Plane * This(1) / (-This(3));
+      Y := Near_Clipping_Plane * This(2) / (-This(3));
+      Screen_S := (X, Y, This(3));
+      X := 2.0 * Screen_S(1) / (R - L) - (R + L) / (R - L);
+      Y := 2.0 * Screen_S(2) / (T - B) - (T + B) / (T - B);
+      Ndc := (X, Y, Screen_S(3));
+      X := (Ndc(1) + 1.0) / 2.0 * W;
+      Y := (1.0 - Ndc(2)) / 2.0 * H;
+      return (X, Y, (-This(3)));
+    end Vector_Camera_To_Raster_Space;
 end Vector;

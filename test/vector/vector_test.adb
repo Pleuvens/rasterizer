@@ -76,5 +76,9 @@ package body Vector_Test is
     Assert(Vector_Equals(Res, Vector_Create(0.0, 0.0, 0.0)), "1: Simple vector multiplication");
   end Test_Vector_Mult;
 
+  procedure Test_Vector_Camera_To_Raster_Space(T: in out Vector_Test) is
+  begin
+    Assert(0 = 0, "1: first test");
+  end Test_Vector_Camera_To_Raster_Space;
 
 end Vector_Test;

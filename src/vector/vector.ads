@@ -14,4 +14,6 @@ package Vector is
     function Vector_Mult(U, V: Vector) return Vector;
     function Vector_Mult(V: Vector;
                          Value: Float) return Vector;
+    function Vector_Camera_To_Raster_Space(This: Vector;
+	                                   R, L, T, B, W, H: Positive) return Vector;
 end Vector;

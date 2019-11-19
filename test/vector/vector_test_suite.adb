@@ -41,6 +41,10 @@ package body Vector_Test_Suite is
          (Vector_Caller.Create
             ("Vector Test : Test Vector Mult",
               Vector_Test.Test_Vector_Mult'Access));
+      Ret.Add_Test
+         (Vector_Caller.Create
+            ("Vector Test : Test Vector Camera To Raster Space",
+              Vector_Test.Test_Vector_Camera_To_Raster_Space'Access));
       return Ret;
    end Suite;
 end Vector_Test_Suite;
