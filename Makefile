@@ -53,7 +53,6 @@ SRC= vector \
 ALL_BIN= tests
 
 check:
-	. env/env.sh 
 	gnatmake -D 'build' $(INCLUDE_DIRS) $(TEST_INCLUDE_DIRS) $(SRC) $(TEST_SRC)
 	gnat bind build/tests
 	gnat link build/tests
