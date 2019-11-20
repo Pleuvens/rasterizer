@@ -77,6 +77,7 @@ package body Vector_Test is
   end Test_Vector_Mult;
 
   procedure Test_Vector_Camera_To_Raster_Space(T: in out Vector_Test) is
+    V: Vector.Vector;
   begin
     Assert(0 = 0, "1: first test");
   end Test_Vector_Camera_To_Raster_Space;

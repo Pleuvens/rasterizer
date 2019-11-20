@@ -59,11 +59,11 @@ package body Vector is
       X := Near_Clipping_Plane * This(1) / (-This(3));
       Y := Near_Clipping_Plane * This(2) / (-This(3));
       Screen_S := (X, Y, This(3));
-      X := 2.0 * Screen_S(1) / (R - L) - (R + L) / (R - L);
-      Y := 2.0 * Screen_S(2) / (T - B) - (T + B) / (T - B);
+      X := 2.0 * Screen_S(1) / Float((R - L) - (R + L)) / Float(R - L);
+      Y := 2.0 * Screen_S(2) / Float((T - B) - (T + B)) / Float(T - B);
       Ndc := (X, Y, Screen_S(3));
-      X := (Ndc(1) + 1.0) / 2.0 * W;
-      Y := (1.0 - Ndc(2)) / 2.0 * H;
+      X := (Ndc(1) + 1.0) / 2.0 * Float(W);
+      Y := (1.0 - Ndc(2)) / 2.0 * Float(H);
       return (X, Y, (-This(3)));
     end Vector_Camera_To_Raster_Space;
 end Vector;
