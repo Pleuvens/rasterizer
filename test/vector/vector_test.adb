@@ -1,3 +1,4 @@
+with Ada.Text_IO; use Ada.Text_IO;
 with AUnit.Assertions; use AUnit.Assertions;
 with Vector; use Vector;
 with Vector_Test;
@@ -77,9 +78,16 @@ package body Vector_Test is
   end Test_Vector_Mult;
 
   procedure Test_Vector_Camera_To_Raster_Space(T: in out Vector_Test) is
-    V: Vector.Vector;
+    R, L, Top, B, W, H: Natural;
+    V, Res: Vector.Vector;
   begin
-    Assert(0 = 0, "1: first test");
+    L := 0; R := 99;
+    Top := 0; B := 99;
+    W := 100; H := 100;
+    V := Vector_Create(1.0, 1.0, 1.0);
+    Put_Line(Float'Image(Vector_Get(Res, 1)) & ", " & Float'Image((Vector_Get(Res, 2))) & ", " & Float'Image((Vector_Get(Res, 3))));
+    Res := Vector_Camera_To_Raster_Space(V, L, R, Top, B, H, W);
+    Assert(Res = Vector_Create(-1.0/99000.0, -1.0/99000.0, -1.0), "1: first test"); 
   end Test_Vector_Camera_To_Raster_Space;
 
 end Vector_Test;

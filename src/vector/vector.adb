@@ -51,7 +51,7 @@ package body Vector is
     end Vector_Mult;
 
     function Vector_Camera_To_Raster_Space(This: Vector;
-	                                   R, L, T, B, W, H: Positive) return Vector is
+	                                   L, R, T, B, H, W: Natural) return Vector is
       Near_Clipping_Plane : Float := 0.1;
       X, Y: Float;
       Screen_S, Ndc: Vector;
