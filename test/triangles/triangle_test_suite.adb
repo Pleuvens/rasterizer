@@ -23,12 +23,22 @@ package body Triangle_Test_Suite is
               Triangle_Test.Test_Triangle_Get_Vector'Access));
       Ret.Add_Test
          (Triangle_Caller.Create
+            ("Triangle Test : Test Triangle Get Vector Normal",
+              Triangle_Test.Test_Triangle_Get_Vector_Normal'Access));
+
+      Ret.Add_Test
+         (Triangle_Caller.Create
             ("Triangle Test : Test Triangle Get Color",
               Triangle_Test.Test_Triangle_Get_Color'Access));
       Ret.Add_Test
          (Triangle_Caller.Create
             ("Triangle Test : Test Triangle Set Vector",
               Triangle_Test.Test_Triangle_Set_Vector'Access));
+      Ret.Add_Test
+         (Triangle_Caller.Create
+            ("Triangle Test : Test Triangle Set Vector Normal",
+              Triangle_Test.Test_Triangle_Set_Vector_Normal'Access));
+
       Ret.Add_Test
          (Triangle_Caller.Create
             ("Triangle Test : Test Triangle Set Color",

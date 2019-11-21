@@ -66,4 +66,9 @@ package body Vector is
       Y := (1.0 - Ndc(2)) / 2.0 * Float(H);
       return (X, Y, (-This(3)));
     end Vector_Camera_To_Raster_Space;
+
+    function Vector_Edge(U, V, P: Vector) return Float is
+    begin
+        return (U(1) - V(1)) * (P(2) - U(2)) - (U(2) - V(2)) * (P(1) - U(1));
+    end Vector_Edge;
 end Vector;

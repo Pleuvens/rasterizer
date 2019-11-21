@@ -19,8 +19,10 @@ package Triangle_Test is
   procedure Test_Triangle_Equals (T : in out Triangle_Test);
 
   procedure Test_Triangle_Get_Vector (T : in out Triangle_Test);
+  procedure Test_Triangle_Get_Vector_Normal (T : in out Triangle_Test);
   procedure Test_Triangle_Get_Color (T : in out Triangle_Test);
 
   procedure Test_Triangle_Set_Vector (T : in out Triangle_Test);
+  procedure Test_Triangle_Set_Vector_Normal (T : in out Triangle_Test);
   procedure Test_Triangle_Set_Color (T : in out Triangle_Test);
 end Triangle_Test;

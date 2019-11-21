@@ -16,4 +16,5 @@ package Vector is
                          Value: Float) return Vector;
     function Vector_Camera_To_Raster_Space(This: Vector;
 	                                   L, R, T, B, H, W: Natural) return Vector;
+    function Vector_Edge(U, V, P: Vector) return Float;
 end Vector;
