@@ -32,5 +32,6 @@ package Triangle is
                                  Index: Integer;
                                  Value: Color.Color);
     function Triangle_Point_Is_Inside(This: Triangle;
-                                      P: Vector.Vector) return boolean;
+                                      P: Vector.Vector;
+                                      Barycentric_Coord: out Vector.Vector) return boolean;
 end Triangle;

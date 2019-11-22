@@ -63,10 +63,49 @@ package body Triangle is
     end Triangle_Set_Color;
 
     function Triangle_Point_Is_Inside(This: Triangle;
-                                      P: Vector.Vector) return boolean is
+                                      P: Vector.Vector;
+                                      Barycentric_Coord: out Vector.Vector) return boolean is
+        Area, W0, W1, W2: Float;
+        Overlaps : Boolean := true;
+        E0, E1, E2 : Vector.Vector;
     begin
-        return Vector_Edge(This.Vectors(1), This.Vectors(2), P) >= 0.0 and
-        Vector_Edge(This.Vectors(2), This.Vectors(3), P) >= 0.0 and
-        Vector_Edge(This.Vectors(3), This.Vectors(1), P) >= 0.0; 
+        Area := Vector_Edge(This.Vectors(1), This.Vectors(2), This.Vectors(3));
+        W0 := Vector_Edge(This.Vectors(2), This.Vectors(3), P);
+        W1 := Vector_Edge(This.Vectors(3), This.Vectors(1), P);
+        W2 := Vector_Edge(This.Vectors(1), This.Vectors(2), P);
+        
+        if W0 < 0.0 or W1 < 0.0 or W2 < 0.0 then
+            return false;
+        end if;
+
+        E0 := Vector_Sub(This.Vectors(3), This.Vectors(2));
+        E1 := Vector_Sub(This.Vectors(1), This.Vectors(3));
+        E2 := Vector_Sub(This.Vectors(2), This.Vectors(1));
+
+        -- Check overlap
+        if W0 = 0.0 then
+            Overlaps := Overlaps and ((E0(2) = 0.0 and E0(1) > 0.0) or E0(2) > 0.0);
+        else
+            Overlaps := Overlaps and W0 > 0.0;
+        end if;
+        if W1 = 0.0 then
+            Overlaps := Overlaps and ((E1(2) = 0.0 and E1(1) > 0.0) or E1(2) > 0.0);
+        else
+            Overlaps := Overlaps and W1 > 0.0;
+        end if;
+        if W2 = 0.0 then
+            Overlaps := Overlaps and ((E2(2) = 0.0 and E2(1) > 0.0) or E2(2) > 0.0);
+        else
+            Overlaps := Overlaps and W2 > 0.0;
+        end if;
+
+        if Overlaps then
+            -- it is overlapping
+            Barycentric_Coord := (W0 / Area, W1 / Area, W2 / Area);
+        else
+            return false;
+        end if;
+        return true;
     end Triangle_Point_Is_Inside;
+
 end Triangle;
