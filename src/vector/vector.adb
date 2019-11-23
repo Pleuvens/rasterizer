@@ -69,6 +69,6 @@ package body Vector is
 
     function Vector_Edge(U, V, P: Vector) return Float is
     begin
-        return (U(1) - V(1)) * (P(2) - U(2)) - (U(2) - V(2)) * (P(1) - U(1));
+        return (P(1) - U(1)) * (V(2) - U(2)) - (P(2) - U(2)) * (V(1) - U(1));
     end Vector_Edge;
 end Vector;

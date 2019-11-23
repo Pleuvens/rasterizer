@@ -25,6 +25,11 @@ begin
     H := 512;
     Area := Vector_Edge(V0, V1, V2);
 
+    Create(F, Out_File, "/tmp/test.ppm");
+    Put_Line(F, "P3");
+    Put_Line(F, Natural'Image(W) & " " & Natural'Image(H));
+    Put_Line(F, "255");
+
     for J in Natural range 1 .. H loop
         for I in Natural range 1 .. W loop
             P := (Float(I) + 0.5, Float(J) + 0.5, 0.0);
@@ -39,19 +44,26 @@ begin
                 G := W0 * C0(2) + W1 * C1(2) + W2 * C2(2);
                 B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
                 Frame_Buffer(J * W + I) := (R, G, B);
+                --Put_Line(Float'Image(R) & " " & Float'Image(G) & " " & Float'Image(B));
+                --Put_Line(Natural'Image(Natural(R) * 255)
+                --& " " & Natural'Image(Natural(G) * 255)
+                --& " " & Natural'Image(Natural(B) * 255));
+                Put(F, Natural'Image(Natural(R) * 255) & " "
+                & Natural'Image(Natural(G) * 255) & " "
+                & Natural'Image(Natural(B) * 255) & " ");
+            else
+                Put_Line(Float'Image(W0) & " " & Float'Image(W1) & " " & Float'Image(W2));
+                Put_Line(Natural'Image(0) & " " & Natural'Image(0) & " " & Natural'Image(0));
+                Put(F, Natural'Image(0) & " "
+                & Natural'Image(0) & " "
+                & Natural'Image(0) & " ");
             end if;
         end loop;
     end loop;
-
-    Create(F, Out_File, "/tmp/test.ppm");
-    Put_Line(F, "P6");
-    Put_Line(F, Natural'Image(W) & " " & Natural'Image(H));
-    Put_Line(F, "255");
-    for I in Natural range 1 .. 262144 loop
-        Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(I), 1)) * 255) & " "
-        & Natural'Image(Natural(Color_Get(Frame_Buffer(I), 2)) * 255) & " "
-        & Natural'Image(Natural(Color_Get(Frame_Buffer(I), 3)) * 255) & " ");
-    end loop;
+ 
+    -- for I in Natural range 1 .. 262144 loop
+        
+    --end loop;
     Close(F);
 
 end Simple_Triangle;
