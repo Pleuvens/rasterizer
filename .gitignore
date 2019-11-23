@@ -1,6 +1,7 @@
 env
 build
 tests
+simple_triangle
 *.ali
 *.o
 *.swp
