@@ -13,7 +13,8 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
 INCLUDE_DIRS= -Isrc/vector \
               -Isrc/color \
               -Isrc/triangles \
-              -Isrc/scene
+              -Isrc/scene \
+	      -Itest/main
 
 TEST_SRC= ada_containers.ads aunit \
 		 aunit \
@@ -38,9 +39,9 @@ TEST_SRC= ada_containers.ads aunit \
 		 vector_test_suite \
 		 color_test \
 		 color_test_suite \
-     triangle_test \
+		 triangle_test \
 		 triangle_test_suite \
-     scene_test \
+		 scene_test \
 		 scene_test_suite \
 		 test_suite \
 		 tests
@@ -48,9 +49,15 @@ TEST_SRC= ada_containers.ads aunit \
 SRC= vector \
      color \
      triangle \
-     scene
+     scene \
+     simple_triangle
 
-ALL_BIN= tests
+ALL_BIN= tests simple_triangle
+
+all:
+	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC)
+	gnat bind build/simple_triangle
+	gnat link build/simple_triangle
 
 check:
 	gnatmake -D 'build' $(INCLUDE_DIRS) $(TEST_INCLUDE_DIRS) $(SRC) $(TEST_SRC)
