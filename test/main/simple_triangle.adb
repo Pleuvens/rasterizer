@@ -44,26 +44,16 @@ begin
                 G := W0 * C0(2) + W1 * C1(2) + W2 * C2(2);
                 B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
                 Frame_Buffer(J * W + I) := (R, G, B);
-                --Put_Line(Float'Image(R) & " " & Float'Image(G) & " " & Float'Image(B));
-                --Put_Line(Natural'Image(Natural(R) * 255)
-                --& " " & Natural'Image(Natural(G) * 255)
-                --& " " & Natural'Image(Natural(B) * 255));
-                Put(F, Natural'Image(Natural(R) * 255) & " "
-                & Natural'Image(Natural(G) * 255) & " "
-                & Natural'Image(Natural(B) * 255) & " ");
+                Put(F, Natural'Image(Natural(R * 255.0)) & " "
+                & Natural'Image(Natural(G * 255.0)) & " "
+                & Natural'Image(Natural(B * 255.0)) & " ");
             else
-                Put_Line(Float'Image(W0) & " " & Float'Image(W1) & " " & Float'Image(W2));
-                Put_Line(Natural'Image(0) & " " & Natural'Image(0) & " " & Natural'Image(0));
                 Put(F, Natural'Image(0) & " "
                 & Natural'Image(0) & " "
                 & Natural'Image(0) & " ");
             end if;
         end loop;
     end loop;
- 
-    -- for I in Natural range 1 .. 262144 loop
-        
-    --end loop;
     Close(F);
 
 end Simple_Triangle;
