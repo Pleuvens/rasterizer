@@ -1,3 +1,4 @@
+with Vector;
 with Color;
 with Triangle;
 
@@ -10,11 +11,13 @@ package Scene is
         Height: Positive := H;
         Width: Positive := W;
         Nb_Triangles: Positive := Nb_Tr;
-        Img: Color_Arr(1..Img_Size) := (others => <>);
-        Triangles: Triangle_Arr(1..Nb_Tr) := (others => <>);
+        Img: Color_Arr(1..Img_Size) := (others => (0.0, 0.0, 0.0));
+        Triangles: Triangle_Arr(1..Nb_Tr);
+        Camera: Vector.Vector;
     end record;
 
-    function Scene_Create(H, W, Nb_Tr: Positive) return Scene;
+    function Scene_Create(H, W, Nb_Tr: Positive;
+                          Cam: Vector.Vector) return Scene;
     function Scene_Get_Px(This: Scene;
                           Y, X: Positive) return Color.Color;
     function Scene_Get_Triangle(This: Scene;
@@ -31,4 +34,6 @@ package Scene is
                               H: Positive);
     procedure Scene_Set_Width(This: in out Scene;
                               W: Positive);
+    procedure Scene_Render_Triangle(This: Scene);
+    procedure Scene_Render(This: Scene);
 end Scene;
