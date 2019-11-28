@@ -14,6 +14,7 @@ INCLUDE_DIRS= -Isrc/vector \
               -Isrc/color \
               -Isrc/triangles \
               -Isrc/scene \
+              -Isrc/input \
 	      -Itest/main
 
 TEST_SRC= ada_containers.ads aunit \
@@ -49,13 +50,18 @@ TEST_SRC= ada_containers.ads aunit \
 SRC= vector \
      color \
      triangle \
-     scene \
-     simple_triangle
+     obj_parser \
+     scene
 
-ALL_BIN= tests simple_triangle
+ALL_BIN= tests simple_triangle simple_scene
 
-all:
-	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC)
+simple_scene:
+	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC) simple_scene
+	gnat bind build/simple_scene
+	gnat link build/simple_scene
+
+simple_triangle:
+	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC) simple_triangle
 	gnat bind build/simple_triangle
 	gnat link build/simple_triangle
 
