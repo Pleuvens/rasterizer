@@ -13,12 +13,18 @@ package body OBJ_Parser is
         while I < Line'Last and Line(I) /= ' ' loop
             I := I + 1;
         end loop;
+        while I < Line'Last and Line(I) = ' ' loop
+            I := I + 1;
+        end loop;
         if I = Line'Last then
             return false;
         end if;
         I1 := I;
         I := I + 1;
         while I < Line'Last and Line(I) /= ' ' loop
+            I := I + 1;
+        end loop;
+        while I < Line'Last and Line(I) = ' ' loop
             I := I + 1;
         end loop;
         if I = Line'Last then
@@ -30,8 +36,6 @@ package body OBJ_Parser is
             I := I + 1;
         end loop; 
         I3 := I;
-        Put_Line(Line & " " & Line((I1 + 1) .. (I2 - 1)) & " :"
-        & Natural'Image(I1 + 1) & " " & Natural'Image(I2 - 1));
         Vector.Vector_Set(V, 1, Float'Value(Line((I1 + 1) .. (I2 - 1))));
         Vector.Vector_Set(V, 2, Float'Value(Line((I2 + 1) .. (I3 - 1))));
         Vector.Vector_Set(V, 3, Float'Value(Line((I3 + 1) .. Line'Last)));
@@ -56,17 +60,21 @@ package body OBJ_Parser is
                 --if Line(1) = '#' then
                 --    goto Continue;
                 --end if;
-                V := Vector.Vector_Create(0.0, 0.0, 0.0);
                 if Line'Last > Line'First then 
-                    if Line(Line'First..(Line'First + 1)) = "vn"
-                        and Read_3_Float(Line, V)
+                    if Line(Line'First..(Line'First + 1)) = "vn" 
                     then
-                        Vs(Nb_V) := V;
-                        Nb_V := Nb_V + 1; 
-                    elsif Line(Line'First) = 'v' and Read_3_Float(Line, Vn)
+                        if not Read_3_Float(Line, Vn) then
+                            return false;
+                        end if;
+                        Vns(Nb_Vn + 1) := Vn;
+                        Nb_Vn := Nb_Vn + 1; 
+                    elsif Line(Line'First) = 'v'
                     then
-                        Vns(Nb_Vn) := Vn;
-                        Nb_Vn := Nb_Vn + 1;
+                        if not Read_3_Float(Line, V) then
+                            return false;
+                        end if;
+                        Vs(Nb_V + 1) := V;
+                        Nb_V := Nb_V + 1;
                         --elsif Line(1) = 'g' then
                         --Scene_Add_Group(S, G);
                         --elsif Line(1) = 'f' then
