@@ -10,5 +10,5 @@ begin
     if not Parse(File_Name, S) then
         return;
     end if;
-    --Scene_Render(S);
+    Scene_Render(S);
 end Simple_Scene;

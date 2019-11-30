@@ -44,7 +44,6 @@ package body OBJ_Parser is
         Vector.Vector_Set(V, 1, Float'Value(Line(T1_Start .. T1_End)));
         Vector.Vector_Set(V, 2, Float'Value(Line(T2_Start .. T2_End)));
         Vector.Vector_Set(V, 3, Float'Value(Line(T3_Start .. Line'Last)));
-        Vector.Vector_Print(V);
         return true;
     end Read_3_Float;
 
@@ -54,7 +53,7 @@ package body OBJ_Parser is
         File: File_Type;
         V, Vn : Vector.Vector;
         Vs, Vns : Vector_Arr(1 .. 65000);
-        C: Color.Color := (0.0, 0.0, 0.0);
+        C: Color.Color := (1.0, 1.0, 1.0);
     begin
         Open (File => File,
         Mode => In_File,
@@ -83,21 +82,15 @@ package body OBJ_Parser is
             end;
         end loop;
         Close (File);
-        Put_Line(Natural'Image(Nb_V));
-        if false then
-            S := Scene.Scene_Create(128, 128, Nb_V / 3, (0.0, 0.0, 0.0));
-            if Nb_V /= Nb_Vn or Nb_V mod 3 /= 0 then
-                return false;
-            end if;
-
-            while I < Nb_V loop
-                Scene_Set_Triangle(S, Tr_Cnt, Triangle.Triangle_Create((Vs(I),
-                Vs(I + 1), Vs(I + 2)),
-                (Vns(I), Vns(I + 1), Vns(I + 2)), (C, C, C)));
-                I := I + 3;
-                Tr_Cnt := Tr_Cnt + 1;
-            end loop;
-        end if;
+        S := Scene.Scene_Create(128, 128, 2, (0.5, 0.5, -5.0));
+        I := 1;
+        while I < Nb_V loop
+            Scene_Set_Triangle(S, Tr_Cnt + 1, Triangle.Triangle_Create((Vs(I),
+            Vs(I + 1), Vs(I + 2)),
+            ((0.0, 0.0, 0.0), (0.0, 0.0, 0.0), (0.0, 0.0, 0.0)), (C, C, C)));
+            I := I + 3;
+            Tr_Cnt := Tr_Cnt + 1;
+        end loop;
         return true;
     end Parse;
 

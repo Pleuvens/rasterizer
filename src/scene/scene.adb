@@ -102,7 +102,7 @@ package body Scene is
                 end loop;
             end loop;
         end loop;
-        Create(F, Out_File, "/tmp/test.ppm");
+        Create(F, Out_File, "/tmp/test2.ppm");
         Put_Line(F, "P3");
         Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
         Put_Line(F, "255");
