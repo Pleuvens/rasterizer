@@ -22,25 +22,28 @@ package body OBJ_Parser is
 
     function Read_3_Float(Line: String;
         V: in out Vector.Vector) return Boolean is
-        I, I1, I2, I3: Natural := Line'First;
+        I, T1_Start, T1_End, T2_Start, T2_End, T3_Start, T3_End: Natural := Line'First;
     begin 
         Get_Next_Token_End_Index(Line, I);
         Skip_Spaces(Line, I); 
         if I = Line'Last then
             return false;
         end if;
-        I1 := I;
+        T1_Start := I;
         Get_Next_Token_End_Index(Line, I);
+        T1_End := I;
         Skip_Spaces(Line, I);
         if I = Line'Last then
             return false;
         end if;
-        I2 := I;
+        T2_Start := I;
         Get_Next_Token_End_Index(Line, I);
-        I3 := I;
-        Vector.Vector_Set(V, 1, Float'Value(Line((I1 + 1) .. (I2 - 1))));
-        Vector.Vector_Set(V, 2, Float'Value(Line((I2 + 1) .. (I3 - 1))));
-        Vector.Vector_Set(V, 3, Float'Value(Line((I3 + 1) .. Line'Last)));
+        T2_End := I;
+        Skip_Spaces(Line, I);
+        T3_Start := I;
+        Vector.Vector_Set(V, 1, Float'Value(Line(T1_Start .. T1_End)));
+        Vector.Vector_Set(V, 2, Float'Value(Line(T2_Start .. T2_End)));
+        Vector.Vector_Set(V, 3, Float'Value(Line(T3_Start .. Line'Last)));
         Vector.Vector_Print(V);
         return true;
     end Read_3_Float;
