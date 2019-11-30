@@ -82,7 +82,7 @@ package body Scene is
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
             Area := Vector_Edge(V0, V1, V2); 
 
-            for J in Natural range 1 .. This.Height loop
+            for J in Natural range 0 .. (This.Height - 1) loop
                 for I in Natural range 1 .. This.Width loop
                     P := (Float(I) + 0.5, Float(J) + 0.5, 0.0);
                     W0 := Vector_Edge(V1, V2, P);
@@ -97,6 +97,7 @@ package body Scene is
                         B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
                         Frame_Buffer(J * This.Width + I) := (R, G, B); 
                     else
+                        Put_Line(Integer'Image(J * This.Width + I));
                         Frame_Buffer(J * This.Width + I) := (0.0, 0.0, 0.0);
                     end if;
                 end loop;
@@ -106,7 +107,7 @@ package body Scene is
         Put_Line(F, "P3");
         Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
         Put_Line(F, "255");
-        for J in Natural range 1 .. This.Height loop
+        for J in Natural range 0 .. (This.Height - 1) loop
             for I in Natural range 1 .. This.Width loop
                 Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
                 1) * 255.0))
