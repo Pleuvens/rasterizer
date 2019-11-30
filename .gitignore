@@ -2,6 +2,7 @@ env
 build
 tests
 simple_triangle
+simple_scene
 *.ali
 *.o
 *.swp

@@ -56,7 +56,7 @@ SRC= vector \
 ALL_BIN= tests simple_triangle simple_scene
 
 simple_scene:
-	gnatmake -D 'build' $(INCLUDE_DIRS) $(SRC) simple_scene
+	gnatmake -g -D 'build' $(INCLUDE_DIRS) $(SRC) simple_scene
 	gnat bind build/simple_scene
 	gnat link build/simple_scene
 

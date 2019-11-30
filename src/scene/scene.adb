@@ -1,3 +1,5 @@
+with Ada.Text_IO;  use Ada.Text_IO;
+
 with Vector; use Vector;
 with Color; use Color;
 with Triangle; use Triangle;
@@ -60,18 +62,18 @@ package body Scene is
       This.Width := W;
     end Scene_Set_Width;
  
-    procedure Scene_Render_Triangle(This: Scene) is
-    begin 
-    end Scene_Render_Triangle;
+    --procedure Scene_Render_Triangle(This: Scene) is
+    --begin 
+    --end Scene_Render_Triangle;
 
     procedure Scene_Render(This: Scene) is
         F : File_Type;
         V0, V1, V2, P: Vector.Vector;
         C0, C1, C2: Color.Color;
         Area, W0, W1, W2, R, G, B: Float;
-        T : Natural;
+        Frame_Buffer : Frame := (1 .. (This.Width * This.Height) => (0.0, 0.0, 0.0));
     begin 
-        for T in range(1 .. This.Nb_Triangles) loop
+        for T in Natural range 1 .. This.Nb_Triangles loop
             V0 := Triangle_Get_Vector(This.Triangles(T), 1);
             V1 := Triangle_Get_Vector(This.Triangles(T), 2);
             V2 := Triangle_Get_Vector(This.Triangles(T), 3);
@@ -80,8 +82,8 @@ package body Scene is
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
             Area := Vector_Edge(V0, V1, V2); 
 
-            for J in Natural range 1 .. H loop
-                for I in Natural range 1 .. W loop
+            for J in Natural range 1 .. This.Height loop
+                for I in Natural range 1 .. This.Width loop
                     P := (Float(I) + 0.5, Float(J) + 0.5, 0.0);
                     W0 := Vector_Edge(V1, V2, P);
                     W1 := Vector_Edge(V2, V0, P);
@@ -93,25 +95,25 @@ package body Scene is
                         R := W0 * C0(1) + W1 * C1(1) + W2 * C2(1);
                         G := W0 * C0(2) + W1 * C1(2) + W2 * C2(2);
                         B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
-                        Frame_Buffer(J * W + I) := (R, G, B); 
+                        Frame_Buffer(J * This.Width + I) := (R, G, B); 
                     else
-                        Frame_Buffer(J * W + I) := (0.0, 0.0, 0.0);
+                        Frame_Buffer(J * This.Width + I) := (0.0, 0.0, 0.0);
                     end if;
                 end loop;
             end loop;
         end loop;
         Create(F, Out_File, "/tmp/test.ppm");
         Put_Line(F, "P3");
-        Put_Line(F, Natural'Image(W) & " " & Natural'Image(H));
+        Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
         Put_Line(F, "255");
-        for J in Natural range 1 .. H loop
-            for I in Natural range 1 .. W loop
-                Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * W + I), 1)
-                * 255.0))
-                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * W + I), 2)
-                * 255.0))
-                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * W + I), 3)
-                * 255.0)) & " ");
+        for J in Natural range 1 .. This.Height loop
+            for I in Natural range 1 .. This.Width loop
+                Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
+                1) * 255.0))
+                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+                + I), 2) * 255.0))
+                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+                + I), 3) * 255.0)) & " ");
             end loop;
         end loop;
         Close(F);

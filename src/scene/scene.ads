@@ -6,6 +6,7 @@ package Scene is
 
     type Color_Arr is array (Positive range <>) of Color.Color;
     type Triangle_Arr is array (Positive range <>) of Triangle.Triangle;
+    type Frame is array(Positive range <>) of Color.Color;
 
     type Scene(H, W, Img_Size, Nb_Tr: Positive) is record
         Height: Positive := H;
@@ -34,6 +35,6 @@ package Scene is
                               H: Positive);
     procedure Scene_Set_Width(This: in out Scene;
                               W: Positive);
-    procedure Scene_Render_Triangle(This: Scene);
+    --procedure Scene_Render_Triangle(This: Scene);
     procedure Scene_Render(This: Scene);
 end Scene;
