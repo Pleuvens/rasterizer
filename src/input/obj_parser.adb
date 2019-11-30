@@ -41,6 +41,7 @@ package body OBJ_Parser is
         Vector.Vector_Set(V, 1, Float'Value(Line((I1 + 1) .. (I2 - 1))));
         Vector.Vector_Set(V, 2, Float'Value(Line((I2 + 1) .. (I3 - 1))));
         Vector.Vector_Set(V, 3, Float'Value(Line((I3 + 1) .. Line'Last)));
+        Vector.Vector_Print(V);
         return true;
     end Read_3_Float;
 

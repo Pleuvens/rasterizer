@@ -1,3 +1,5 @@
+with Ada.Text_IO; use Ada.Text_IO;
+
 with Vector;
 
 package body Vector is
@@ -71,4 +73,11 @@ package body Vector is
     begin
         return (P(1) - U(1)) * (V(2) - U(2)) - (P(2) - U(2)) * (V(1) - U(1));
     end Vector_Edge;
+
+    
+    procedure Vector_Print(This: Vector) is
+    begin
+        Put_Line(Float'Image(This(1)) & ", " & Float'Image(This(2)) & " ,"
+        & Float'Image(This(3)));
+    end Vector_Print;
 end Vector;
