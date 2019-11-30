@@ -6,35 +6,37 @@ with Scene; use Scene;
 
 package body OBJ_Parser is
 
-    function Read_3_Float(Line: String;
-        V: in out Vector.Vector) return Boolean is
-        I, I1, I2, I3: Natural := Line'First;
+    procedure Skip_Spaces(Line: String; I: in out Natural) is
+    begin
+        while I < Line'Last and Line(I) = ' ' loop
+            I := I + 1;
+        end loop;
+    end Skip_Spaces;
+
+    procedure Get_Next_Token_End_Index(Line: String; I: in out Natural) is
     begin
         while I < Line'Last and Line(I) /= ' ' loop
             I := I + 1;
         end loop;
-        while I < Line'Last and Line(I) = ' ' loop
-            I := I + 1;
-        end loop;
+    end Get_Next_Token_End_Index;
+
+    function Read_3_Float(Line: String;
+        V: in out Vector.Vector) return Boolean is
+        I, I1, I2, I3: Natural := Line'First;
+    begin 
+        Get_Next_Token_End_Index(Line, I);
+        Skip_Spaces(Line, I); 
         if I = Line'Last then
             return false;
         end if;
         I1 := I;
-        I := I + 1;
-        while I < Line'Last and Line(I) /= ' ' loop
-            I := I + 1;
-        end loop;
-        while I < Line'Last and Line(I) = ' ' loop
-            I := I + 1;
-        end loop;
+        Get_Next_Token_End_Index(Line, I);
+        Skip_Spaces(Line, I);
         if I = Line'Last then
             return false;
         end if;
         I2 := I;
-        I := I + 1;
-        while I < Line'Last and Line(I) /= ' ' loop
-            I := I + 1;
-        end loop; 
+        Get_Next_Token_End_Index(Line, I);
         I3 := I;
         Vector.Vector_Set(V, 1, Float'Value(Line((I1 + 1) .. (I2 - 1))));
         Vector.Vector_Set(V, 2, Float'Value(Line((I2 + 1) .. (I3 - 1))));
@@ -57,9 +59,6 @@ package body OBJ_Parser is
             declare
                 Line : String := Get_Line(File);
             begin
-                --if Line(1) = '#' then
-                --    goto Continue;
-                --end if;
                 if Line'Last > Line'First then 
                     if Line(Line'First..(Line'First + 1)) = "vn" 
                     then
@@ -75,10 +74,6 @@ package body OBJ_Parser is
                         end if;
                         Vs(Nb_V + 1) := V;
                         Nb_V := Nb_V + 1;
-                        --elsif Line(1) = 'g' then
-                        --Scene_Add_Group(S, G);
-                        --elsif Line(1) = 'f' then
-                        --Scene_Add_Face(S);
                     end if;
                 end if;
             end;
