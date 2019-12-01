@@ -74,9 +74,12 @@ package body Scene is
         Frame_Buffer : Frame := (1 .. (This.Width * This.Height) => (0.0, 0.0, 0.0));
     begin 
         for T in Natural range 1 .. This.Nb_Triangles loop
-            V0 := Triangle_Get_Vector(This.Triangles(T), 1);
-            V1 := Triangle_Get_Vector(This.Triangles(T), 2);
-            V2 := Triangle_Get_Vector(This.Triangles(T), 3);
+            V0 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
+                This.Triangles(T), 1), 0, 127, 0, 127, 128, 128);
+            V1 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
+                This.Triangles(T), 2), -64, 64, -64, 64, 128, 128);
+            V2 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
+                This.Triangles(T), 3), -64, 64, -64, 64, 128, 128);
             C0 := Triangle_Get_Color(This.Triangles(T), 1);
             C1 := Triangle_Get_Color(This.Triangles(T), 2);
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
@@ -89,6 +92,7 @@ package body Scene is
                     W1 := Vector_Edge(V2, V0, P);
                     W2 := Vector_Edge(V0, V1, P);
                     if W0 >= 0.0 and W1 >= 0.0 and W2 >= 0.0 then
+                        Vector.Vector_Print((W0, W1, W2));
                         W0 := W0 / Area;
                         W1 := W1 / Area;
                         W2 := W2 / Area;
@@ -97,7 +101,6 @@ package body Scene is
                         B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
                         Frame_Buffer(J * This.Width + I) := (R, G, B); 
                     else
-                        Put_Line(Integer'Image(J * This.Width + I));
                         Frame_Buffer(J * This.Width + I) := (0.0, 0.0, 0.0);
                     end if;
                 end loop;
