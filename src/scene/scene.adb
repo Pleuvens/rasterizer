@@ -77,9 +77,9 @@ package body Scene is
             V0 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
                 This.Triangles(T), 1), 0, 127, 0, 127, 128, 128);
             V1 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
-                This.Triangles(T), 2), -64, 64, -64, 64, 128, 128);
+                This.Triangles(T), 2), 0, 127, 0, 127, 128, 128);
             V2 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
-                This.Triangles(T), 3), -64, 64, -64, 64, 128, 128);
+                This.Triangles(T), 3), 0, 127, 0, 127, 128, 128);
             C0 := Triangle_Get_Color(This.Triangles(T), 1);
             C1 := Triangle_Get_Color(This.Triangles(T), 2);
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
