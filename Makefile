@@ -15,6 +15,7 @@ INCLUDE_DIRS= -Isrc/vector \
               -Isrc/triangles \
               -Isrc/scene \
               -Isrc/input \
+              -Isrc/camera \
 	      -Itest/main
 
 TEST_SRC= ada_containers.ads aunit \
@@ -51,6 +52,7 @@ SRC= vector \
      color \
      triangle \
      obj_parser \
+     camera \
      scene
 
 ALL_BIN= tests simple_triangle simple_scene
