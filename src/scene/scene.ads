@@ -1,6 +1,7 @@
 with Vector;
 with Color;
 with Triangle;
+with Camera;
 
 package Scene is
 
@@ -14,7 +15,7 @@ package Scene is
         Nb_Triangles: Positive := Nb_Tr;
         Img: Color_Arr(1..Img_Size) := (others => (0.0, 0.0, 0.0));
         Triangles: Triangle_Arr(1..Nb_Tr);
-        Camera: Vector.Vector;
+        Cam: Camera.Camera;
     end record;
 
     function Scene_Create(H, W, Nb_Tr: Positive;

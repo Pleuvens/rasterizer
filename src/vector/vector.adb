@@ -63,21 +63,7 @@ package body Vector is
             , V(3) / Ada.Numerics.Elementary_Functions.Sqrt(V(1) * V(1) + V(2) * V(2)
             + V(3) * V(3)));
     end Vector_Normalize;
-
-    function Vector_World_To_Camera_Space(This: Vector; Cam: Camera.Camera) return Vector is
-        D, R, U: Vector;
-    begin
-        D := Camera.Camera_Get_Dir(Cam);
-        R := Vector_Mult(D, Camera.Camera_Get_Up(Cam));
-        U := Vector_Mult(R, D);
-        D := Vector_Normalize(D);
-        R := Vector_Normalize(R);
-        U := Vector_Normalize(U);
-        return (This(1) * R(1) + This(2) * U(1) + This(3) * (-D(1))
-            , This(1) * R(2) + This(2) * U(2) + This(3) * (-D(2))
-            , This(1) * R(3) + This(2) * U(3) + This(3) * (-D(3)));
-    end Vector_World_To_Camera_Space;
-
+ 
     function Vector_Camera_To_Raster_Space(This: Vector;
 	                                   L, R, T, B, H, W: Integer) return Vector is
       Near_Clipping_Plane : Float := 0.1;

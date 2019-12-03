@@ -3,6 +3,7 @@ with Ada.Text_IO;  use Ada.Text_IO;
 with Vector; use Vector;
 with Color; use Color;
 with Triangle; use Triangle;
+with Camera; use Camera;
 
 package body Scene is
 
@@ -10,7 +11,7 @@ package body Scene is
                           Cam: Vector.Vector) return Scene is
       S : Scene(H, W, H * W, Nb_Tr);
     begin
-        S.Camera := Cam;
+        S.Cam := Camera.Camera_Create(Cam, (0.0, 0.0, 1.0), (0.0, 1.0, 0.0));
         return S; 
     end Scene_Create;
 
@@ -74,12 +75,15 @@ package body Scene is
         Frame_Buffer : Frame := (1 .. (This.Width * This.Height) => (0.0, 0.0, 0.0));
     begin 
         for T in Natural range 1 .. This.Nb_Triangles loop
-            V0 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
-                This.Triangles(T), 1), 0, 127, 0, 127, 128, 128);
-            V1 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
-                This.Triangles(T), 2), 0, 127, 0, 127, 128, 128);
-            V2 := Vector.Vector_Camera_To_Raster_Space(Triangle_Get_Vector(
-                This.Triangles(T), 3), 0, 127, 0, 127, 128, 128);
+            V0 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
+                This.Triangles(T), 1), This.Cam);
+            V1 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
+                This.Triangles(T), 2), This.Cam);
+            V2 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
+                This.Triangles(T), 3), This.Cam);
+            V0 := Vector.Vector_Camera_To_Raster_Space(V0, 0, 127, 0, 127, 128, 128);
+            V1 := Vector.Vector_Camera_To_Raster_Space(V1, 0, 127, 0, 127, 128, 128);
+            V2 := Vector.Vector_Camera_To_Raster_Space(V2, 0, 127, 0, 127, 128, 128);
             C0 := Triangle_Get_Color(This.Triangles(T), 1);
             C1 := Triangle_Get_Color(This.Triangles(T), 2);
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
@@ -91,8 +95,8 @@ package body Scene is
                     W0 := Vector_Edge(V1, V2, P);
                     W1 := Vector_Edge(V2, V0, P);
                     W2 := Vector_Edge(V0, V1, P);
+                    Vector.Vector_Print((W0, W1, W2));
                     if W0 >= 0.0 and W1 >= 0.0 and W2 >= 0.0 then
-                        Vector.Vector_Print((W0, W1, W2));
                         W0 := W0 / Area;
                         W1 := W1 / Area;
                         W2 := W2 / Area;

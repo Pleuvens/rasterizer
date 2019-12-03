@@ -18,5 +18,6 @@ package Vector is
 	                                   L, R, T, B, H, W: Integer) return Vector;
     function Vector_Edge(U, V, P: Vector) return Float;
 
+    function Vector_Normalize(V: Vector) return Vector;
     procedure Vector_Print(This: Vector);
 end Vector;

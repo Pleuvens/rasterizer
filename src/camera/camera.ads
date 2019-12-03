@@ -19,4 +19,7 @@ package Camera is
     procedure Camera_Set_Dir(This: in out Camera; Value: Vector.Vector);
     procedure Camera_Set_Up(This: in out Camera; Value: Vector.Vector);
 
+    function Vector_World_To_Camera_Space(This: Vector.Vector; Cam: Camera)
+        return Vector.Vector;
+
 end Camera;

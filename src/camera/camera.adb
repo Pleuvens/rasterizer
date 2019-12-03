@@ -44,4 +44,20 @@ package body Camera is
         This.Up := Value;
     end Camera_Set_Up;
 
+    function Vector_World_To_Camera_Space(This: Vector.Vector; Cam: Camera)
+        return Vector.Vector is
+        D, R, U: Vector.Vector;
+    begin
+        D := Cam.Direction;
+        R := Vector.Vector_Mult(D, Cam.Up);
+        U := Vector.Vector_Mult(R, D);
+        D := Vector.Vector_Normalize(D);
+        R := Vector.Vector_Normalize(R);
+        U := Vector.Vector_Normalize(U);
+        return (This(1) * R(1) + This(2) * U(1) + This(3) * (-D(1))
+            , This(1) * R(2) + This(2) * U(2) + This(3) * (-D(2))
+            , This(1) * R(3) + This(2) * U(3) + This(3) * (-D(3)));
+    end Vector_World_To_Camera_Space;
+
+
 end Camera;
