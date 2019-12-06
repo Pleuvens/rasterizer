@@ -12,6 +12,7 @@ TEST_INCLUDE_DIRS= -Ienv/libs/aunit/include/aunit/containers/ \
 
 INCLUDE_DIRS= -Isrc/vector \
               -Isrc/color \
+              -Isrc/matrix \
               -Isrc/triangles \
               -Isrc/scene \
               -Isrc/input \
@@ -50,6 +51,7 @@ TEST_SRC= ada_containers.ads aunit \
 
 SRC= vector \
      color \
+     matrix \
      triangle \
      obj_parser \
      camera \
