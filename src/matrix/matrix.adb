@@ -1,6 +1,8 @@
 with Ada.Numerics.Elementary_Functions;
 use Ada.Numerics.Elementary_Functions;
 
+with Vector;
+
 package body Matrix is
 
     function Matrix_Create(H, W: Natural; Values: Float_Arr) return Matrix is
@@ -151,6 +153,23 @@ package body Matrix is
             end loop;
         end loop;
         return Res;
+    end;
+
+    function Vector_To_Matrix(V: Vector.Vector) return Matrix is
+        M: Matrix(1, 4, 4);
+    begin
+        M.Values := (Vector.Vector_Get(V, 1),
+        Vector.Vector_Get(V, 2), Vector.Vector_Get(V, 3), 1.0);
+        return M;
+    end;
+
+    function Matrix_To_Vector(M: Matrix) return Vector.Vector is
+        V: Vector.Vector;
+    begin
+        Vector.Vector_Set(V, 1, Matrix_Get_Value(M, 1, 1));
+        Vector.Vector_Set(V, 2, Matrix_Get_Value(M, 1, 2));
+        Vector.Vector_Set(V, 3, Matrix_Get_Value(M, 1, 3));
+        return V;
     end;
 
 end Matrix;

@@ -1,3 +1,4 @@
+with Vector;
 
 package Matrix is
 
@@ -24,5 +25,6 @@ package Matrix is
     function Matrix_Add(M, M2: Matrix) return Matrix;
     function Matrix_Mult(M, M2: Matrix) return Matrix;
     function Matrix_Mult(M: Matrix; Value: Float) return Matrix;
-
+    function Vector_To_Matrix(V: Vector.Vector) return Matrix;
+    function Matrix_To_Vector(M: Matrix) return Vector.Vector;
 end Matrix;
