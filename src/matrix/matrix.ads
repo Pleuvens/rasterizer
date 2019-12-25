@@ -2,7 +2,8 @@ with Vector;
 
 package Matrix is
 
-    type Float_Arr is array (Natural range <>) of Float;
+    type Float_Arr is array (Natural range <>) of Float
+        with Default_Component_Value => 0.0;
 
     type Matrix(H, W, Size: Positive) is record
         Height: Natural := H;
@@ -12,7 +13,7 @@ package Matrix is
 
     function Matrix_Create(H, W: Natural; Values: Float_Arr) return Matrix;
     function Matrix_Coord_Valid(This: Matrix; J, I: Natural) return Boolean;
-    function Matrix_Identity(Size: Natural) return Matrix;
+    function Matrix_Identity(H, W, Size: Natural) return Matrix;
     function Matrix_Translation(X, Y, Z: Float) return Matrix;
     function Matrix_Scaling(X, Y, Z: Float) return Matrix;
     function Matrix_Rotation_X(R: Float) return Matrix;

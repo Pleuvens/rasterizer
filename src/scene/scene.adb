@@ -4,6 +4,7 @@ with Vector; use Vector;
 with Color; use Color;
 with Triangle; use Triangle;
 with Camera; use Camera;
+with Matrix; use Matrix;
 
 package body Scene is
 
@@ -11,7 +12,8 @@ package body Scene is
                           Cam: Vector.Vector) return Scene is
       S : Scene(H, W, H * W, Nb_Tr);
     begin
-        S.Cam := Camera.Camera_Create(Cam, (0.0, 0.0, 1.0), (0.0, 1.0, 0.0));
+        S.Cam := Camera.Camera_Create(Cam, (0.0, 0.0, 1.0), (0.0, 1.0, 0.0),
+        (1.0, 0.0, 0.0), 30.0, 1.0, 1000.0);
         return S; 
     end Scene_Create;
 
@@ -74,57 +76,97 @@ package body Scene is
         Area, W0, W1, W2, R, G, B: Float;
         Frame_Buffer : Frame := (1 .. (This.Width * This.Height) => (0.0, 0.0, 0.0));
     begin 
+        Create(F, Out_File, "/tmp/test2.ppm");
+            Put_Line(F, "P3");
+            Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
+            Put_Line(F, "255");
         for T in Natural range 1 .. This.Nb_Triangles loop
-            V0 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
-                This.Triangles(T), 1), This.Cam);
-            V1 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
-                This.Triangles(T), 2), This.Cam);
-            V2 := Camera.Vector_World_To_Camera_Space(Triangle_Get_Vector(
-                This.Triangles(T), 3), This.Cam);
-            V0 := Vector.Vector_Camera_To_Raster_Space(V0, 0, 127, 0, 127, 128, 128);
-            V1 := Vector.Vector_Camera_To_Raster_Space(V1, 0, 127, 0, 127, 128, 128);
-            V2 := Vector.Vector_Camera_To_Raster_Space(V2, 0, 127, 0, 127, 128, 128);
+            V0 := Matrix.Matrix_To_Vector(
+                Matrix_Mult(
+                    Vector_To_Matrix(Triangle_Get_Vector(This.Triangles(T), 1)),
+                    Camera.Get_Transform_Matrix(This.Cam,
+                        Triangle_Get_Vector(This.Triangles(T), 1),
+                        128, 128)));
+            V1 := Matrix.Matrix_To_Vector(
+                Matrix_Mult(
+                    Vector_To_Matrix(Triangle_Get_Vector(This.Triangles(T), 2)),
+                    Camera.Get_Transform_Matrix(This.Cam,
+                        Triangle_Get_Vector(This.Triangles(T), 2),
+                        128, 128)));
+            V2 := Matrix.Matrix_To_Vector(
+                Matrix_Mult(
+                    Vector_To_Matrix(Triangle_Get_Vector(This.Triangles(T), 3)),
+                    Camera.Get_Transform_Matrix(This.Cam,
+                        Triangle_Get_Vector(This.Triangles(T), 3),
+                        128, 128))); 
+            --V0 := Vector.Vector_Camera_To_Raster_Space(V0, 0, 127, 0, 127, 128, 128);
+            --V1 := Vector.Vector_Camera_To_Raster_Space(V1, 0, 127, 0, 127, 128, 128);
+            --V2 := Vector.Vector_Camera_To_Raster_Space(V2, 0, 127, 0, 127, 128, 128);
+            --Vector.Vector_Print(V0);
+            --Vector.Vector_Print(V1);
+            --Vector.Vector_Print(V2);
             C0 := Triangle_Get_Color(This.Triangles(T), 1);
             C1 := Triangle_Get_Color(This.Triangles(T), 2);
             C2 := Triangle_Get_Color(This.Triangles(T), 3);
-            Area := Vector_Edge(V0, V1, V2); 
-
+            Area := Vector_Edge(V0, V1, V2);  
             for J in Natural range 0 .. (This.Height - 1) loop
                 for I in Natural range 1 .. This.Width loop
                     P := (Float(I) + 0.5, Float(J) + 0.5, 0.0);
                     W0 := Vector_Edge(V1, V2, P);
                     W1 := Vector_Edge(V2, V0, P);
                     W2 := Vector_Edge(V0, V1, P);
-                    Vector.Vector_Print((W0, W1, W2));
                     if W0 >= 0.0 and W1 >= 0.0 and W2 >= 0.0 then
+                        --Vector.Vector_Print((W0, W1, W2));
+                        Put_Line("YES");
                         W0 := W0 / Area;
                         W1 := W1 / Area;
                         W2 := W2 / Area;
                         R := W0 * C0(1) + W1 * C1(1) + W2 * C2(1);
                         G := W0 * C0(2) + W1 * C1(2) + W2 * C2(2);
                         B := W0 * C0(3) + W1 * C1(3) + W2 * C2(3);
-                        Frame_Buffer(J * This.Width + I) := (R, G, B); 
-                    else
-                        Frame_Buffer(J * This.Width + I) := (0.0, 0.0, 0.0);
-                    end if;
-                end loop;
-            end loop;
-        end loop;
-        Create(F, Out_File, "/tmp/test2.ppm");
-        Put_Line(F, "P3");
-        Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
-        Put_Line(F, "255");
-        for J in Natural range 0 .. (This.Height - 1) loop
-            for I in Natural range 1 .. This.Width loop
-                Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
+                        Frame_Buffer(J * This.Width + I) := (1.0, 1.0, 1.0); 
+                        Put_Line(Float'Image(Color_Get(Frame_Buffer(J * This.Width + I), 1)));
+                        Put_Line(Natural'Image(J) & " " & Natural'Image(I));
+                        Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
                 1) * 255.0))
                 & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
                 + I), 2) * 255.0))
                 & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
                 + I), 3) * 255.0)) & " ");
+                    else
+                        Frame_Buffer(J * This.Width + I) := (0.0, 0.0, 0.0);
+                        Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
+                1) * 255.0))
+                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+                + I), 2) * 255.0))
+                & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+                + I), 3) * 255.0)) & " ");
+                    end if;
+                end loop;
             end loop;
         end loop;
+
         Close(F);
+        --Create(F, Out_File, "/tmp/test2.ppm");
+        --Put_Line(F, "P3");
+        --Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
+        --Put_Line(F, "255");
+        --for J in Natural range 0 .. (This.Height - 1) loop
+        --    for I in Natural range 1 .. This.Width loop
+        --        if Color_Equals(Frame_Buffer(J * This.Width + I), (1.0, 1.0, 1.0)) then
+        --            Put_Line("MDR ?");
+        --        end if;
+                --Put_Line(Float'Image(Color_Get(Frame_Buffer(J * This.Width + I), 1)));
+                --        Put_Line(Natural'Image(J) & " " & Natural'Image(I));
+        --        Put(F, Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width + I),
+        --        1) * 255.0))
+        --        & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+        --        + I), 2) * 255.0))
+        --        & " " & Natural'Image(Natural(Color_Get(Frame_Buffer(J * This.Width
+        --        + I), 3) * 255.0)) & " ");
+        --    end loop;
+        --end loop;
+        --Close(F);
     end Scene_Render;
 
 end Scene;

@@ -19,11 +19,11 @@ package body Matrix is
         return J <= This.Height and I <= This.Width;
     end;
 
-    function Matrix_Identity(Size: Natural) return Matrix is
-        M: Matrix(Size, Size, Size * Size);
+    function Matrix_Identity(H, W, Size: Natural) return Matrix is
+        M: Matrix(H, W, Size);
     begin
-        for I in Natural range 1 .. Size loop
-            Matrix_Set_Value(M, I , I, 1.0);
+        for I in Natural range 0 .. (H - 1) loop
+            Matrix_Set_Value(M, I, I, 1.0);
         end loop;
         return M;
     end;
@@ -168,7 +168,6 @@ package body Matrix is
     function Matrix_To_Vector(M: Matrix) return Vector.Vector is
         V: Vector.Vector;
     begin
-        Put_Line("M to V");
         Vector.Vector_Set(V, 1, Matrix_Get_Value(M, 0, 0));
         Vector.Vector_Set(V, 2, Matrix_Get_Value(M, 0, 1));
         Vector.Vector_Set(V, 3, Matrix_Get_Value(M, 0, 2));
