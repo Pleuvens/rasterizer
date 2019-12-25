@@ -1,4 +1,5 @@
 with Vector;
+with Matrix;
 
 package body Camera is
 
@@ -46,17 +47,32 @@ package body Camera is
 
     function Vector_World_To_Camera_Space(This: Vector.Vector; Cam: Camera)
         return Vector.Vector is
+        Eye_P: Vector.Vector := (1.0, 1.0, -5.0);
+        View_Dir: Vector.Vector := (0.0, 0.0, -1.0);
+        Up_Vect: Vector.Vector := (0.0, 1.0, 0.0);
         D, R, U: Vector.Vector;
+        Vect_Matrix: Matrix.Matrix(1, 4, 3);
+        M_T, M_R, Proj_Matrix: Matrix.Matrix(4, 4, 15);
     begin
-        D := Cam.Direction;
-        R := Vector.Vector_Mult(D, Cam.Up);
-        U := Vector.Vector_Mult(R, D);
-        D := Vector.Vector_Normalize(D);
+        R := Vector.Vector_Mult(View_Dir, Up_Vect);
+        U := Vector.Vector_Mult(R, View_Dir);
         R := Vector.Vector_Normalize(R);
         U := Vector.Vector_Normalize(U);
-        return (This(1) * R(1) + This(2) * U(1) + This(3) * (-D(1))
-            , This(1) * R(2) + This(2) * U(2) + This(3) * (-D(2))
-            , This(1) * R(3) + This(2) * U(3) + This(3) * (-D(3)));
+        D := Vector.Vector_Normalize(View_Dir);
+        M_R := Matrix.Matrix_Create(4, 4,
+        (Vector.Vector_Get(R, 1), Vector.Vector_Get(R, 1), Vector.Vector_Get(R, 1), 0.0,
+         Vector.Vector_Get(U, 1), Vector.Vector_Get(U, 1), Vector.Vector_Get(U, 1), 0.0,
+         -Vector.Vector_Get(D, 1), -Vector.Vector_Get(D, 1), -Vector.Vector_Get(D, 1), 0.0,
+         0.0, 0.0, 0.0, 1.0));
+        M_T := Matrix.Matrix_Create(4, 4, 
+        (1.0, 0.0, 0.0, -Vector.Vector_Get(Eye_P, 1),
+         0.0, 1.0, 0.0, -Vector.Vector_Get(Eye_P, 2),
+         0.0, 0.0, 1.0, -Vector.Vector_Get(Eye_P, 3),
+         0.0, 0.0, 0.0, 1.0));
+        Proj_Matrix := Matrix.Matrix_Mult(M_R, M_T);
+        Vect_Matrix := Matrix.Vector_To_Matrix(This);
+        Vect_Matrix := Matrix.Matrix_Mult(Vect_Matrix, Proj_Matrix);
+        return Matrix.Matrix_To_Vector(Vect_Matrix);
     end Vector_World_To_Camera_Space;
 
 

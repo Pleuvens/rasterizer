@@ -2,12 +2,12 @@ with Vector;
 
 package Matrix is
 
-    type Float_Arr is array (Positive range <>) of Float;
+    type Float_Arr is array (Natural range <>) of Float;
 
     type Matrix(H, W, Size: Positive) is record
         Height: Natural := H;
         Width: Natural := W;
-        Values: Float_Arr (1 .. Size);
+        Values: Float_Arr (0 .. Size);
     end record;
 
     function Matrix_Create(H, W: Natural; Values: Float_Arr) return Matrix;
