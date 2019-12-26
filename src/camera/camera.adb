@@ -115,16 +115,16 @@ package body Camera is
         return Matrix.Matrix is
         Scale, Rotate, Translate, Camera_Translate, Camera_Rotate, Perspective_Matrix: Matrix.Matrix(4, 4, 15);
     begin
-        Scale := Matrix.Matrix_Scaling(1.0, 1.0, 1.0);
+        Scale := Matrix.Matrix_Identity(4, 4, 15);--Matrix.Matrix_Scaling(1.0, 1.0, 1.0);
         Rotate := Matrix.Matrix_Identity(4, 4, 15);--Matrix.Matrix_Rotation_X?(0.0, 0.0, 0.0);
         Translate :=
             Matrix.Matrix_Translation(Vector.Vector_Get(V, 1),
                 Vector.Vector_Get(V, 2),
                 Vector.Vector_Get(V, 3));
         Camera_Translate := 
-            Matrix.Matrix_Translation(Vector.Vector_Get(This.Position, 1),
-                Vector.Vector_Get(This.Position, 2),
-                Vector.Vector_Get(This.Position, 3));
+            Matrix.Matrix_Translation((-Vector.Vector_Get(This.Position, 1)),
+                (-Vector.Vector_Get(This.Position, 2)),
+                (-Vector.Vector_Get(This.Position, 3)));
         Init_Camera_Transform_Matrix(This, Camera_Rotate);
         Init_Perspective_Proj_Matrix(This, H, W, Perspective_Matrix);
         return Matrix.Matrix_Mult(Perspective_Matrix,
