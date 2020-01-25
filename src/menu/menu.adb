@@ -9,13 +9,16 @@ with HAL.Touch_Panel;       use HAL.Touch_Panel;
 with STM32.User_Button;     use STM32;
 with BMP_Fonts;
 with LCD_Std_Out;
-with STM32.DMA2D;         use STM32.DMA2D;
+--with STM32.DMA2D;         use STM32.DMA2D;
 with STM32.DMA2D_Bitmap;  use STM32.DMA2D_Bitmap;
-with HAL;                 use HAL;
+--with HAL;                 use HAL;
 
 procedure Menu is
+
+  BG : constant Bitmap_Color := (Alpha => 255, others => 64);
+
   function Bitmap_Buffer return not null Any_Bitmap_Buffer;
-   function Buffer return DMA2D_Buffer;
+  -- function Buffer return DMA2D_Buffer;
 
    -------------------
    -- Bitmap_Buffer --
@@ -34,55 +37,56 @@ procedure Menu is
    -- Buffer --
    ------------
 
-   function Buffer return DMA2D_Buffer is
+   --function Buffer return DMA2D_Buffer is
+   --begin
+     -- return To_DMA2D_Buffer (Display.Hidden_Buffer (1).all);
+   --end Buffer;
+
+
+   -----------
+   -- Clear --
+   -----------
+
+   procedure Clear is
    begin
-      return To_DMA2D_Buffer (Display.Hidden_Buffer (1).all);
-   end Buffer;
+      Display.Hidden_Buffer (1).Set_Source (BG);
+      Display.Hidden_Buffer (1).Fill;
+
+
+      LCD_Std_Out.Clear_Screen;
+      LCD_Std_Out.Put_Line ("RASTERIZER");
+
+      Display.Update_Layer (1, Copy_Back => True);
+   end Clear;
 
    Width  : Natural;
    Height : Natural;
-   X, Y   : Natural;
 
-   L4_CLUT : array (UInt4) of DMA2D_Color;
-   L8_CLUT : array (UInt8) of DMA2D_Color;
-
-   type L4_Bitmap is array (UInt4) of UInt4 with Pack;
-   type L8_Bitmap is array (UInt8) of UInt8 with Pack;
-
-   L4_Data : L4_Bitmap with Size => 16 * 4;
-   L8_Data : L8_Bitmap with Size => 256 * 8;
-
-   L4_Buffer : constant DMA2D_Buffer :=
-     (Color_Mode      => L4,
-      Addr            => L4_Data (0)'Address,
-      Width           => 4,
-      Height          => 4,
-      CLUT_Color_Mode => ARGB8888,
-      CLUT_Addr       => L4_CLUT (0)'Address);
-   L8_Buffer : constant DMA2D_Buffer :=
-     (Color_Mode      => L8,
-      Addr            => L8_Data (0)'Address,
-      Width           => 16,
-      Height          => 16,
-      CLUT_Color_Mode => ARGB8888,
-      CLUT_Addr       => L8_CLUT (0)'Address);
 begin
    --  Initialize LCD
    Display.Initialize;
    Display.Initialize_Layer (1, HAL.Bitmap.ARGB_8888);
 
+   -- Initialize touch panel
+   Touch_Panel.Initialize;
+   -- Initialize button
+   User_Button.Initialize;
+
+   LCD_Std_Out.Set_Font(BMP_Fonts.Font12x12);
+   LCD_Std_Out.Current_Background_Color := BG;
+   --LCD_Std_Out.Put_Line("RASTERIZER");
+
+
+
+   Clear;
+
    Width := Display.Hidden_Buffer (1).Width;
    Height := Display.Hidden_Buffer (1).Height;
 
    loop
-      Bitmap_Buffer.Set_Source (HAL.Bitmap.Dark_Blue);
-      Bitmap_Buffer.Fill;
 
-      --  Draw blue filled rectangle in the upper left corner
-      --Bitmap_Buffer.Set_Source (HAL.Bitmap.Blue);
-      --Bitmap_Buffer.Fill_Rect ((Position => (0, 0),
-        --                        Width    => Width / 2,
-      --                          Height   => Height / 2));
+      --Bitmap_Buffer.Set_Source (HAL.Bitmap.Dark_Blue);
+      --Bitmap_Buffer.Fill;
 
       --  Drawn yellow rectangle outline in the lower left corner
       Bitmap_Buffer.Set_Source (HAL.Bitmap.Yellow);
@@ -90,28 +94,20 @@ begin
                                 Width  => Width / 3,
                                 Height => Height / 3 ));
 
+      if User_Button.Has_Been_Pressed then
+         LCD_Std_Out.Put_Line("TESTTT BOUTON");
+      end if;
 
-      --  Fill L4 CLUT
-      for Index in UInt4 loop
-         L4_CLUT (Index) := (255, 0, 0, UInt8 (Index) * 16);
-      end loop;
+      declare
+         State : constant TP_State := Touch_Panel.Get_All_Touch_Points;
+      begin
+         if State'Length = 0 then
+            LCD_Std_Out.Put_Line("STATE 00000");
+         elsif State'Length = 1 then
+            LCD_Std_Out.Put_Line("STATE 1111111111");
+         end if;
 
-      --  Fill L4 bitmap
-      for Index in L4_Data'Range loop
-         L4_Data (Index) := Index;
-      end loop;
-
-      --  Fill L8 CLUT
-      for Index in UInt8 loop
-         L8_CLUT (Index) := (255, 0, Index, 0);
-      end loop;
-
-      --  Fill L8 bitmap
-      for Index in L8_Data'Range loop
-         L8_Data (Index) := Index;
-      end loop;
-
-
+      end;
 
 
       Display.Update_Layers;
