@@ -4,6 +4,7 @@ tests
 obj
 simple_triangle
 Ada_Drivers_Library
+gnat-*
 simple_scene
 *.ali
 *.o
