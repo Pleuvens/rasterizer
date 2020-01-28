@@ -1,7 +1,9 @@
 env
 build
 tests
+obj
 simple_triangle
+Ada_Drivers_Library
 simple_scene
 *.ali
 *.o

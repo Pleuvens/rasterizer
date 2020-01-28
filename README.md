@@ -25,3 +25,13 @@ Create a libs directory in env directory and clone the AUnit github [repository]
 ## Test suite
 
 run `make check` to lauch the test suite
+
+## Compile CLI
+
+source gnat.sh
+gprbuild -P /path/to/.gpt
+
+Dossier de compilation précisé dans le .gpr
+
+arm-eabi-objcopy -O binary elf bin
+st-flash write bin 0x08000000

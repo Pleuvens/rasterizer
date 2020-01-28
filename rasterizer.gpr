@@ -1,9 +1,9 @@
-with "/home/noemie/Desktop/Ing3/ada/tp_board/Ada_Drivers_Library/boards/stm32f429_discovery/stm32f429_discovery_full.gpr";
+with "/home/weedle/Work/Other/rasterizer/Ada_Drivers_Library/boards/stm32f429_discovery/stm32f429_discovery_full.gpr";
 
 --with "$GPR_PROJECT_PATH/boards/stm32f429_discovery/stm32f429_discovery_full.gpr";
 
 project Rasterizer  --extends "$GPR_PROJECT_PATH/examples/shared/common/common.gpr" is
-extends "/home/noemie/Desktop/Ing3/ada/tp_board/Ada_Drivers_Library/examples/shared/common/common.gpr" is
+extends "/home/weedle/Work/Other/rasterizer/Ada_Drivers_Library/examples/shared/common/common.gpr" is
 
   for Runtime ("Ada") use STM32F429_Discovery_Full'Runtime("Ada");
   for Target use "arm-eabi";
