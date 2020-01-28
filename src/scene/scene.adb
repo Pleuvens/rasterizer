@@ -13,7 +13,7 @@ package body Scene is
       S : Scene(H, W, (H * W - 1), Nb_Tr);
     begin
         S.Cam := Camera.Camera_Create(Cam, (0.0, 0.0, 1.0), (0.0, 1.0, 0.0),
-        (1.0, 0.0, 0.0), 30.0, 1.0, 1000.0);
+        (1.0, 0.0, 0.0), 30.0, 0.1, 1000.0);
         return S; 
     end Scene_Create;
 
@@ -76,10 +76,6 @@ package body Scene is
         Area, W0, W1, W2, R, G, B: Float;
         Frame_Buffer : Frame := (0 .. (This.Width * This.Height - 1) => (0.0, 0.0, 0.0));
     begin 
-        --Create(F, Out_File, "/tmp/test2.ppm");
-        --    Put_Line(F, "P3");
-        --    Put_Line(F, Natural'Image(This.Width) & " " & Natural'Image(This.Height));
-        --    Put_Line(F, "255");
         for T in Natural range 1 .. This.Nb_Triangles loop
             Put_Line(Natural'Image(T) & ":");
             V0 := Matrix.Matrix_To_Vector(
@@ -100,9 +96,9 @@ package body Scene is
                     Camera.Get_Transform_Matrix(This.Cam,
                         Triangle_Get_Vector(This.Triangles(T), 3),
                         128, 128))); 
-            --V0 := Vector.Vector_Camera_To_Raster_Space(V0, 0, 127, 0, 127, 128, 128);
-            --V1 := Vector.Vector_Camera_To_Raster_Space(V1, 0, 127, 0, 127, 128, 128);
-            --V2 := Vector.Vector_Camera_To_Raster_Space(V2, 0, 127, 0, 127, 128, 128);
+            V0 := Vector.Vector_Camera_To_Raster_Space(V0, 0, 127, 0, 127, 128, 128);
+            V1 := Vector.Vector_Camera_To_Raster_Space(V1, 0, 127, 0, 127, 128, 128);
+            V2 := Vector.Vector_Camera_To_Raster_Space(V2, 0, 127, 0, 127, 128, 128);
             Vector.Vector_Print(V0);
             Vector.Vector_Print(V1);
             Vector.Vector_Print(V2);
@@ -112,7 +108,7 @@ package body Scene is
             Area := Vector_Edge(V0, V1, V2);  
             for J in Natural range 0 .. (This.Height - 1) loop
                 for I in Natural range 0 .. (This.Width - 1) loop
-                    P := (Float(I) + 0.5, Float(J) + 0.5, 0.0);
+                    P := (Float(I), Float(J), 0.0);
                     W0 := Vector_Edge(V1, V2, P);
                     W1 := Vector_Edge(V2, V0, P);
                     W2 := Vector_Edge(V0, V1, P);

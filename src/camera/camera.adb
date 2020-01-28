@@ -96,18 +96,12 @@ package body Camera is
         Matrix.Matrix_Set_Value(M, 0, 0, Vector.Vector_Get(U, 1));
         Matrix.Matrix_Set_Value(M, 0, 1, Vector.Vector_Get(U, 2));
         Matrix.Matrix_Set_Value(M, 0, 2, Vector.Vector_Get(U, 3));
-        Matrix.Matrix_Set_Value(M, 0, 3, 0.0);
         Matrix.Matrix_Set_Value(M, 1, 0, Vector.Vector_Get(V, 1));
         Matrix.Matrix_Set_Value(M, 1, 1, Vector.Vector_Get(V, 2));
         Matrix.Matrix_Set_Value(M, 1, 2, Vector.Vector_Get(V, 3));
-        Matrix.Matrix_Set_Value(M, 1, 3, 0.0);
         Matrix.Matrix_Set_Value(M, 2, 0, Vector.Vector_Get(N, 1));
         Matrix.Matrix_Set_Value(M, 2, 1, Vector.Vector_Get(N, 2));
         Matrix.Matrix_Set_Value(M, 2, 2, Vector.Vector_Get(N, 3));
-        Matrix.Matrix_Set_Value(M, 2, 3, 0.0);
-        Matrix.Matrix_Set_Value(M, 3, 0, 0.0);
-        Matrix.Matrix_Set_Value(M, 3, 1, 0.0);
-        Matrix.Matrix_Set_Value(M, 3, 2, 0.0);
         Matrix.Matrix_Set_Value(M, 3, 3, 1.0);
     end;
 
