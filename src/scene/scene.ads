@@ -5,15 +5,15 @@ with Camera;
 
 package Scene is
 
-    type Color_Arr is array (Positive range <>) of Color.Color;
+    type Color_Arr is array (Natural range <>) of Color.Color;
     type Triangle_Arr is array (Positive range <>) of Triangle.Triangle;
-    type Frame is array(Positive range <>) of Color.Color;
+    type Frame is array(Natural range <>) of Color.Color;
 
     type Scene(H, W, Img_Size, Nb_Tr: Positive) is record
         Height: Positive := H;
         Width: Positive := W;
         Nb_Triangles: Positive := Nb_Tr;
-        Img: Color_Arr(1..Img_Size) := (others => (0.0, 0.0, 0.0));
+        Img: Color_Arr(0 .. Img_Size) := (others => (0.0, 0.0, 0.0));
         Triangles: Triangle_Arr(1..Nb_Tr);
         Cam: Camera.Camera;
     end record;

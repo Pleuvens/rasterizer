@@ -152,7 +152,7 @@ package body OBJ_Parser is
             end;
         end loop;
         Close (File);
-        S := Scene.Scene_Create(128, 128, Nb_T, (0.5, 0.5, 0.0));
+        S := Scene.Scene_Create(128, 128, Nb_T, (0.0, 0.0, -50.0));
         while Tr_Cnt < Nb_T loop
             Scene_Set_Triangle(S, Tr_Cnt + 1, Ts(Tr_Cnt + 1));
             Tr_Cnt := Tr_Cnt + 1;
