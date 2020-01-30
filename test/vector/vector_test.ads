@@ -26,7 +26,5 @@ package Vector_Test is
   procedure Test_Vector_Dot (T : in out Vector_Test);
   procedure Test_Vector_Mult (T : in out Vector_Test);
 
-  procedure Test_Vector_Mult (T : in out Vector_Test);
-
   procedure Test_Vector_Camera_To_Raster_Space (T : in out Vector_Test);
 end Vector_Test;
