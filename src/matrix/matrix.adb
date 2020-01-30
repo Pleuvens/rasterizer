@@ -5,7 +5,8 @@ use Ada.Numerics.Elementary_Functions;
 
 with Vector;
 
-package body Matrix is
+package body Matrix
+is
 
     function Matrix_Create(H, W: Natural; Values: Float_Arr) return Matrix is
         M: Matrix(H, W, H * W - 1);
@@ -19,7 +20,8 @@ package body Matrix is
         return J <= This.Height and I <= This.Width;
     end;
 
-    function Matrix_Identity(H, W, Size: Natural) return Matrix is
+    function Matrix_Identity(H, W, Size: Natural) return Matrix 
+    is
         M: Matrix(H, W, Size);
     begin
         for I in Natural range 0 .. (H - 1) loop
@@ -79,12 +81,14 @@ package body Matrix is
     end;
 
 
-    function Matrix_Get_Value(This: Matrix; J, I: Natural) return Float is
+    function Matrix_Get_Value(This: Matrix; J, I: Natural) return Float
+    is
     begin
         return This.Values(J * This.Width + I);
     end;
 
-    procedure Matrix_Set_Value(This: in out Matrix; J, I: Natural; Value: Float) is
+    procedure Matrix_Set_Value(This: in out Matrix; J, I: Natural; Value: Float)
+    is
     begin
         This.Values(J * This.Width + I) := Value;
     end;
@@ -118,7 +122,8 @@ package body Matrix is
         return true;
     end;
 
-    function Matrix_Add(M, M2: Matrix) return Matrix is
+    function Matrix_Add(M, M2: Matrix) return Matrix
+    is
         Res: Matrix(M.Height, M.Width, M.Height * M.Width - 1);
     begin
         for J in Natural range 0 .. (M.Height - 1) loop
@@ -130,7 +135,8 @@ package body Matrix is
         return Res;
     end;
 
-    function Matrix_Mult(M, M2: Matrix) return Matrix is
+    function Matrix_Mult(M, M2: Matrix) return Matrix
+    is
         Res: Matrix(M.Height, M2.Width, M.Height * M2.Width - 1);
     begin
         for J in Natural range 0 .. (M.Height - 1) loop
