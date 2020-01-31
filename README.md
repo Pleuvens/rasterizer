@@ -34,4 +34,9 @@ gprbuild -P /path/to/.gpt
 Dossier de compilation précisé dans le .gpr
 
 arm-eabi-objcopy -O binary elf bin
-st-flash write bin 0x08000000
+ost-flash write bin 0x08000000
+
+AUTHORS:
+
+DE MARTIMPREY Noémie
+FERVIL Pleuvens
